@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #dde9dd;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.side-bar {
+    display: inline;
+    position: fixed;
+    height: 100%;
+    width: 200px;
+    background-color: #ffff;
+    border-right: 1px solid #979494;
+    left: 0;
+}
+
+.side-bar img {
+    width: 150px;
+    margin: 20px;
+}
+
+.side-bar-item {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+}
+
+.side-bar-item:hover a {
+    color: #9cc1e5;
+}
+
+.side-bar-item a {
+    text-decoration: none;
+    color: black;
+}
+
+.side-bar-item a i {
+    margin-right: 10px;
+}
+
+.log-out {
+    margin-top: 230px;
+    margin-left: 20px;
+}
+
+.log-out:hover a {
+    color: #9cc1e5;
+}
+
+.log-out a {
+    text-decoration: none;
+    color: black;
+}
+
+.log-out a i {
+    margin-right: 10px;
+}
+
+.isi {
+    display: inline;
+}
+
+.judul {
+    display: flex;
+    justify-content: center;
+    margin-left: 400px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    width: 300px;
+    height: 50px;
+    background-color: #9cc1e5;
+    border-radius: 5px;
+}
+
+.judul h1 {
+    margin-top: 8px;
+}
+
+.isi form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 200px;
+}
+
+.file-input {
+    display: none;
+    /* Menyembunyikan input file asli */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #9cc1e5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 680px;
+}
+
+.file-name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.form-grup {
+    position: relative;
+    margin-bottom: 20px;
+    width: 700px;
+}
+
+.form-input {
+    width: 700px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.form-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    color: #999;
+    font-size: 16px;
+}
+
+.isi form button {
+    height: 30px;
+    border: none;
+    color: #555;
+}
+
+.isi form button:hover {
+    background-color: #9cc1e5;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.2s, opacity 0.2s ease;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

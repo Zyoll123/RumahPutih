@@ -7,6 +7,11 @@ body {
   background-color: #dde9dd;
 }
 
+.big-three {
+    display: flex;
+    justify-content: flex-start;
+}
+
 .side-bar {
   display: inline;
   position: fixed;
@@ -105,4 +110,35 @@ body {
   border-radius: 10px;
   margin-top: 10px;
   margin-left: 5px;
+}
+
+.menu img {
+  width: 200px;
+  height: 199px;
+}
+
+.nama-menu {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.nama-menu p {
+    font-size: 20px;
+}
+
+.gambar-menu {
+    display: flex;
+    justify-content: center;
+}
+
+.icon-edit a {
+    color: black;
+    text-decoration: none;
+}
+
+.icon-edit a:hover {
+    color: #9cc1e5;
 }
