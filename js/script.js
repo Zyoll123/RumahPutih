@@ -1,3 +1,12 @@
+function toggleLabel(input) {
+    const label = input.nextElementSibling;
+    if (input.value) {
+        label.classList.add('hidden');
+    } else {
+        label.classList.remove('hidden');
+    }
+}
+
 // Mengambil semua input number
 const inputs = document.querySelectorAll('.numberInput');
 
