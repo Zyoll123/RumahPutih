@@ -5,7 +5,6 @@ if (!isset($_SESSION['id_kasir'])) {
     exit;
 }
 
-echo "Selamat datang, " . htmlspecialchars($_SESSION['username']) . "!";
 ?>
 
 
@@ -42,7 +41,7 @@ echo "Selamat datang, " . htmlspecialchars($_SESSION['username']) . "!";
                     <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
                 </div>
                 <div class="log-out">
-                    <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                    <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
             <div class="search-container">
@@ -79,7 +78,7 @@ echo "Selamat datang, " . htmlspecialchars($_SESSION['username']) . "!";
 
         <?php 
         include 'konek.php';
-        $data = mysqli_query($konek,"select * from tb_produk");
+        $data = mysqli_query($konek,"select * from produk");
         while($d = mysqli_fetch_array($data)){
         ?>
         
