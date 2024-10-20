@@ -16,7 +16,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .left {
-    background-color: #f7f7f7;
+    background-color: #ffff;
     padding: 20px; 
     display: flex;
     flex-direction: column;
@@ -24,7 +24,8 @@ body {
     align-items: flex-start; 
 }
 .left img {
-    width: 200px;
+    background-color:transparent ;
+    width: 150px;
     height: auto; 
     margin: 10px 0 20px 0; 
 }

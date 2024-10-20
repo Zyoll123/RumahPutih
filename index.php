@@ -78,101 +78,16 @@ if (!isset($_SESSION['id_kasir'])) {
 
         <?php 
         include 'konek.php';
-        $data = mysqli_query($konek,"select * from produk");
+        $data = mysqli_query($conn,"select * from produk");
         while($d = mysqli_fetch_array($data)){
         ?>
-        
         <div class="menu-container">
-        <div class="menu">
+            <div class="menu">
                 <p><?php echo $d['nama_produk'] ?></p>
                 <div class="menu-item">
-                    <img src="assets/Americano.png">
+                    <img src="<?php echo $d['gambar_produk']; ?>" alt="<?php echo $d['nama_produk']; ?>">
                     <div class="menu-info">
-                        <p>Rp 12.000,00</p>
-                        <div class="input-number-container">
-                            <button class="minusBtn">-</button>
-                            <input type="number" class="numberInput" value="0" min="0" max="1000">
-                            <button class="plusBtn">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="menu">
-                <p>Americano</p>
-                <div class="menu-item">
-                    <img src="assets/Americano.png">
-                    <div class="menu-info">
-                        <p>Rp 12.000,00</p>
-                        <div class="input-number-container">
-                            <button class="minusBtn">-</button>
-                            <input type="number" class="numberInput" value="0" min="0" max="1000">
-                            <button class="plusBtn">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="menu">
-                <p>Americano</p>
-                <div class="menu-item">
-                    <img src="assets/Americano.png">
-                    <div class="menu-info">
-                        <p>Rp 12.000,00</p>
-                        <div class="input-number-container">
-                            <button class="minusBtn">-</button>
-                            <input type="number" class="numberInput" value="0" min="0" max="1000">
-                            <button class="plusBtn">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="menu">
-                <p>Americano</p>
-                <div class="menu-item">
-                    <img src="assets/Americano.png">
-                    <div class="menu-info">
-                        <p>Rp 12.000,00</p>
-                        <div class="input-number-container">
-                            <button class="minusBtn">-</button>
-                            <input type="number" class="numberInput" value="0" min="0" max="1000">
-                            <button class="plusBtn">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="menu">
-                <p>Americano</p>
-                <div class="menu-item">
-                    <img src="assets/Americano.png">
-                    <div class="menu-info">
-                        <p>Rp 12.000,00</p>
-                        <div class="input-number-container">
-                            <button class="minusBtn">-</button>
-                            <input type="number" class="numberInput" value="0" min="0" max="1000">
-                            <button class="plusBtn">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="menu">
-                <p>Americano</p>
-                <div class="menu-item">
-                    <img src="assets/Americano.png">
-                    <div class="menu-info">
-                        <p>Rp 12.000,00</p>
-                        <div class="input-number-container">
-                            <button class="minusBtn">-</button>
-                            <input type="number" class="numberInput" value="0" min="0" max="1000">
-                            <button class="plusBtn">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="menu">
-                <p>Americano</p>
-                <div class="menu-item">
-                    <img src="assets/Americano.png">
-                    <div class="menu-info">
-                        <p>Rp 12.000,00</p>
+                        <p><?php echo $d['harga_produk']?></p>
                         <div class="input-number-container">
                             <button class="minusBtn">-</button>
                             <input type="number" class="numberInput" value="0" min="0" max="1000">
@@ -182,7 +97,7 @@ if (!isset($_SESSION['id_kasir'])) {
                 </div>
             </div>
         </div>
-        <?php
+        <?php 
         }
         ?>
     </div>
