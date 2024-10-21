@@ -7,51 +7,60 @@ body {
     margin: 0;
     background-color: #f0f4f8;
 }
+
 .container {
     display: flex;
-    background-color: white;
-    width: 800px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f0f4f8; /* Sesuaikan warna background container */
+    width: 100%; /* Buat lebar penuh */
+    height: 100%;
+    box-shadow: none; /* Hapus bayangan */
+    border-radius: 0; /* Hapus sudut melengkung */
+    overflow: visible; /* Hapus pengaturan overflow */
 }
+
 .left {
-    background-color: #ffff;
-    padding: 20px; 
+    background-color: #ffff; /* Hapus warna background pada bagian kiri */
+    padding: 40px;
     display: flex;
+    width: 500px;
     flex-direction: column;
-    justify-content: flex-start; 
-    align-items: flex-start; 
+    justify-content: flex-start;
+    align-items: flex-start;
 }
+
 .left img {
-    background-color:transparent ;
-    width: 150px;
-    height: auto; 
-    margin: 10px 0 20px 0; 
+    width: 200px;
+    height: auto;
+    margin: 10px 0 20px 0;
 }
+
 .left h1 {
     font-size: 36px;
     margin: 0;
     color: #000;
 }
+
 .left p {
     font-size: 18px;
     margin: 10px 0;
     color: #333;
 }
+
 .right {
-    background-color: #dfe6ed;
+    background-color: transparent; /* Hapus warna background pada bagian kanan */
     padding: 50px;
-    width: 50%;
+    width: 50%; /* Sesuaikan lebar */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 .right .avatar img {
-    width: 120px; /* Ukuran gambar di dalam avatar diperbesar */
+    width: 120px;
     height: 120px;
 }
+
 .right input {
     width: 100%;
     padding: 10px;
@@ -60,6 +69,7 @@ body {
     border-radius: 5px;
     font-family: Abhaya Libre ExtraBold, Regular;
 }
+
 .right button {
     width: 100%;
     padding: 10px;
