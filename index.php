@@ -75,31 +75,31 @@ if (!isset($_SESSION['id_kasir'])) {
                 </div>
             </div>
         </div>
-
         <?php 
-        include 'konek.php';
-        $data = mysqli_query($conn,"select * from produk");
-        while($d = mysqli_fetch_array($data)){
-        ?>
-        <div class="menu-container">
-            <div class="menu">
-                <p><?php echo $d['nama_produk'] ?></p>
-                <div class="menu-item">
-                    <img src="<?php echo $d['gambar_produk']; ?>" alt="<?php echo $d['nama_produk']; ?>">
-                    <div class="menu-info">
-                        <p><?php echo $d['harga_produk']?></p>
-                        <div class="input-number-container">
-                            <button class="minusBtn">-</button>
-                            <input type="number" class="numberInput" value="0" min="0" max="1000">
-                            <button class="plusBtn">+</button>
-                        </div>
+    include 'konek.php';
+    $data = mysqli_query($conn, "SELECT * FROM produk");
+    while($d = mysqli_fetch_array($data)){
+?>
+    <div class="menu-container">
+        <div class="menu">
+            <p><?php echo $d['nama_produk'] ?></p>
+            <div class="menu-item">
+                <!-- Menampilkan gambar BLOB sebagai base64 -->
+                <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
+                <div class="menu-info">
+                    <p><?php echo $d['harga_produk']?></p>
+                    <div class="input-number-container">
+                        <button class="minusBtn">-</button>
+                        <input type="number" class="numberInput" value="0" min="0" max="1000">
+                        <button class="plusBtn">+</button>
                     </div>
                 </div>
             </div>
         </div>
-        <?php 
-        }
-        ?>
+    </div>
+<?php 
+    }
+?>
     </div>
 
     <script src="js/script.js"></script>
