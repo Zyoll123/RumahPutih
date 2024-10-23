@@ -1,11 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../html xampp"
-		}
-	],
-	"settings": {}
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "../../../html bu frisca"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "html bu frisca"
+  }
 }
