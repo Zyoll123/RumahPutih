@@ -12,7 +12,7 @@
         <div class="side-bar">
             <img src="assets/Logo Rumah Putih.png" alt="logo">
             <div class="side-bar-item">
-                <a href="index.html"><i class="fa-solid fa-house"></i>Home Page</a>
+                <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
             </div>
             <div class="side-bar-item">
                 <a href="#"><i class="fa-regular fa-file-lines"></i>History</a>
@@ -34,27 +34,49 @@
             <div class="judul">
                 <h1>Tambah Menu</h1>
             </div>
-            <form>
+
+<?php  
+include 'konek.php'; 
+
+// Query untuk mengambil data kategori
+$query2 = "SELECT id_kategori, nama_kategori FROM kategori";
+$result2 = mysqli_query($conn, $query2);
+?>
+
+            <form method="post" action="tambah.php" enctype="multipart/form-data">
                 <div class="form-grup">
-                    <input type="text" class="form-input" id="nama" oninput="toggleLabel(this)">
+                    <input type="text" class="form-input" id="nama" name="nama_produk" oninput="toggleLabel(this)">
                     <label for="nama" class="form-label">Masukkan Nama Produk</label>
                 </div>
 
                 <div class="form-grup">
-                    <input type="text" class="form-input" id="harga" oninput="toggleLabel(this)">
+                    <input type="text" class="form-input" id="harga" name="harga_produk" oninput="toggleLabel(this)">
                     <label for="harga" class="form-label">Masukkan Harga Produk</label>
                 </div>
 
                 <label class="custom-file-upload">
                     Masukkan Gambar Produk
-                    <input type="file" class="file-input" id="fileUpload" />
+                    <input type="file" class="file-input" id="fileUpload" name="gambar_produk" required/>
                 </label>
                 <div class="file-name" id="fileName">Tidak ada file yang dipilih.</div><br>
 
                 <div class="form-grup">
-                    <input type="text" class="form-input" id="stok" oninput="toggleLabel(this)">
+                    <input type="text" class="form-input" id="stok" name="stok_produk" oninput="toggleLabel(this)">
                     <label for="stok" class="form-label">Masukkan Stok Produk</label>
                 </div>
+
+                <!-- Select untuk memilih kategori -->
+                <label for="id_kategori">Pilih Kategori:</label>
+                <select name="id_kategori" id="id_kategori" required>
+                <option value="">--Pilih Kategori--</option>
+                <?php
+                // Loop dan tampilkan kategori dalam <option>
+                while ($row = mysqli_fetch_assoc($result2)) {
+                    echo '<option value="' . $row['id_kategori'] . '">' . $row['nama_kategori'] . '</option>';
+                }
+                ?>
+            </select>
+            <br><br>
 
                 <button type="submit">INPUT</button>
             </form>

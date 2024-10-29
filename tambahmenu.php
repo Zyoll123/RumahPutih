@@ -12,7 +12,7 @@
         <div class="side-bar">
             <img src="assets/Logo Rumah Putih.png" alt="logo">
             <div class="side-bar-item">
-                <a href="index.html"><i class="fa-solid fa-house"></i>Home Page</a>
+                <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
             </div>
             <div class="side-bar-item">
                 <a href="#"><i class="fa-regular fa-file-lines"></i>History</a>

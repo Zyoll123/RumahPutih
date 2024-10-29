@@ -32,7 +32,7 @@ if (!isset($_SESSION['id_kasir'])) {
                     <a href="#"><i class="fa-regular fa-file-lines"></i>History</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="edit.html"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
+                    <a href="edit.php"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
                 </div>
                 <div class="side-bar-item">
                     <a href="#"><i class="fa-solid fa-gear"></i>Setting</a>
