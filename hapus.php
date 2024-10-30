@@ -1,11 +1,17 @@
-<?php  
+<?php
 
 include 'konek.php';
 
-$id = $_GET['id_produk'];
-
-mysqli_query($conn,"delete from produk where id_produk='$id'");
-
-header("location: edit.php");
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    // Hapus data terkait di detail_transaksi
+    mysqli_query($conn, "DELETE FROM detail_transaksi WHERE Id_produk='$id'");
+    
+    // Hapus data di tabel produk
+    mysqli_query($conn, "DELETE FROM produk WHERE id_produk='$id'");
+    header("Location: index.php");
+} else {
+    echo "ID tidak ditemukan.";
+}
 
 ?>

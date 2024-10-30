@@ -34,32 +34,45 @@
                 </div>
             </div>
             <div class="tambah-menu">
-                <button><i class="fa-solid fa-plus"><a href="tambahmenu.php">Tambah Menu</a></i></button>
+                <button><a href="tambahmenu.php"><i class="fa-solid fa-plus"></i>Tambah Menu</a></button>
             </div>
         </div>
+
         <?php 
         include 'konek.php';
+
+        // Periksa koneksi ke database
+        if (!$conn) {
+            die("Koneksi gagal: " . mysqli_connect_error());
+        }
+
         $data = mysqli_query($conn, "SELECT * FROM produk");
-        while($d = mysqli_fetch_array($data)){
+
+        // Periksa apakah ada data
+        if (mysqli_num_rows($data) > 0) {
+            while($d = mysqli_fetch_array($data)){
         ?>
         <div class="menu-container">
             <div class="menu">
                 <div class="nama-menu">
-                    <p><?php echo $d['nama_produk'] ?></p>
+                    <p><?php echo htmlspecialchars($d['nama_produk']); ?></p>
                     <div class="icon-edit">
-                        <a href="editmenu.php"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a href="hapus.php"><i class="fa-regular fa-trash-can"></i></a>
+                        <a href="editmenu.php?id_produk=<?php echo $d['id_produk']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="hapus.php?id=<?php echo $d['id_produk']; ?>"><i class="fa-regular fa-trash-can"></i></a>
                     </div>
                 </div>
                 <div class="menu-item">
                     <div class="gambar-menu">
-                    <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
+                    <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo htmlspecialchars($d['nama_produk']); ?>">
                     </div>
                 </div>
             </div>
         </div>
         <?php 
-         }
+            }
+        } else {
+            echo "<p>Tidak ada produk yang tersedia.</p>";
+        }
         ?>
     </div>
 </body>

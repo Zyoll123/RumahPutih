@@ -93,9 +93,9 @@ body {
 }
 
 .menu-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(8,1fr);
+  gap: 10px;
   margin-left: 220px;
   padding-top: 90px;
   height: 100%;
@@ -103,13 +103,11 @@ body {
 }
 
 .menu {
-  display: inline;
   width: 280px;
   height: 250px;
   background-color: #ffff;
   border-radius: 10px;
   margin-top: 10px;
-  margin-left: 5px;
 }
 
 .menu img {
