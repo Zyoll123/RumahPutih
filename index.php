@@ -71,7 +71,7 @@ if (!isset($_SESSION['id_kasir'])) {
                     <p>Tanggal : </p>
                 </div>
                 <div class="buttom-info">
-                    <a href="transaksi.php">Place On Order</a>
+                    <a href="transaksi.html">Place On Order</a>
                 </div>
             </div>
         </div>
