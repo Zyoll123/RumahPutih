@@ -2,12 +2,7 @@
   "folders": [
 	{
 		"path": "."
-	},
-	{
-		"path": "../../../html bu frisca"
 	}
 ],
-  "settings": {
-    "liveServer.settings.multiRootWorkspaceName": "html bu frisca"
-  }
+  "settings": {}
 }

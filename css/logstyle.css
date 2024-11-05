@@ -81,3 +81,7 @@ body {
     cursor: pointer;
     font-family: Abhaya Libre ExtraBold, Regular;
 }
+
+form p {
+    text-align: center;
+}

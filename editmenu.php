@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Menu</title>
+    <title>Edit Menu</title>
     <link rel="stylesheet" href="css/tambahmenu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
@@ -32,28 +32,37 @@
                 <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
             </div>
         </div>
+        
         <div class="isi">
             <div class="judul">
-                <h1>Tambah Menu</h1>
+                <h1>Edit Menu</h1>
             </div>
 
             <?php
             include 'konek.php';
 
-            // Query untuk mengambil data kategori
-            $query2 = "SELECT id_kategori, nama_kategori FROM kategori";
-            $result2 = mysqli_query($conn, $query2);
-
             // Cek apakah 'id_produk' ada di URL
             if (isset($_GET['id_produk'])) {
                 $id_produk = $_GET['id_produk'];
-                $data = mysqli_query($conn, "SELECT * FROM produk WHERE id_produk = '$id_produk'");
-                $d = mysqli_fetch_array($data);
+                
+                // Query untuk mengambil data produk berdasarkan id_produk
+                $query_produk = "SELECT * FROM produk WHERE id_produk = '$id_produk'";
+                $result_produk = mysqli_query($conn, $query_produk);
 
-                // Cek apakah data ditemukan
-                if (!$d) {
+                // Jika produk ditemukan
+                if ($result_produk && mysqli_num_rows($result_produk) > 0) {
+                    $d = mysqli_fetch_assoc($result_produk);
+                } else {
                     echo "Data produk tidak ditemukan.";
                     exit;
+                }
+
+                // Query untuk mengambil data kategori
+                $query_kategori = "SELECT id_kategori, nama_kategori FROM kategori";
+                $result_kategori = mysqli_query($conn, $query_kategori);
+                
+                if (!$result_kategori) {
+                    die("Query kategori gagal: " . mysqli_error($conn));
                 }
             } else {
                 echo "ID produk tidak disediakan.";
@@ -61,42 +70,30 @@
             }
             ?>
 
-                <form method="post" action="update.php" enctype="multipart/form-data">
-                    <input type="hidden" name="id_produk" value="<?php echo $d['id_produk'] ?>">
-                    <div class="form-grup">
-                        <input type="text" class="form-input" id="nama" name="nama_produk" value="<?php echo $d['nama_produk'] ?>" oninput="toggleLabel(this)">
-                    </div>
+            <form method="post" action="update.php" enctype="multipart/form-data">
+                <input type="hidden" name="id_produk" value="<?php echo htmlspecialchars($d['id_produk']); ?>">
+                
+                <div class="form-grup">
+                    <input type="text" class="form-input" id="nama" name="nama_produk" value="<?php echo htmlspecialchars($d['nama_produk']); ?>" oninput="toggleLabel(this)">
+                </div>
 
-                    <div class="form-grup">
-                        <input type="text" class="form-input" id="harga" name="harga_produk" value="<?php echo $d['harga_produk'] ?>" oninput="toggleLabel(this)">
-                    </div>
+                <div class="form-grup">
+                    <input type="text" class="form-input" id="harga" name="harga_produk" value="<?php echo htmlspecialchars($d['harga_produk']); ?>" oninput="toggleLabel(this)">
+                </div>
 
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="Gambar Produk Lama">
-                    <label class="custom-file-upload">
-                        Ganti Gambar Produk
-                        <input type="file" class="file-input" id="fileUpload" name="gambar_produk_baru" />
-                    </label>
-                    <div class="file-name" id="fileName">Tidak ada file yang dipilih.</div><br>
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="Gambar Produk Lama">
+                <label class="custom-file-upload">
+                    Ganti Gambar Produk
+                    <input type="file" class="file-input" id="fileUpload" name="gambar_produk_baru">
+                </label>
+                <div class="file-name" id="fileName">Tidak ada file yang dipilih.</div><br>
 
-                    <div class="form-grup">
-                        <input type="text" class="form-input" id="stok" name="stok_produk" value="<?php echo $d['stok_produk'] ?>" oninput="toggleLabel(this)">
-                    </div>
+                <div class="form-grup">
+                    <input type="text" class="form-input" id="stok" name="stok_produk" value="<?php echo htmlspecialchars($d['stok_produk']); ?>" oninput="toggleLabel(this)">
+                </div>
 
-                    <!-- Select untuk memilih kategori -->
-                    <select name="id_kategori" id="id_kategori" required>
-                        <option value="">--Pilih Kategori--</option>
-                        <?php
-                        // Loop dan tampilkan kategori dalam <option>
-                        while ($row = mysqli_fetch_assoc($result2)) {
-                            $selected = ($row['id_kategori'] == $d['id_kategori']) ? 'selected' : '';
-                            echo '<option value="' . $row['id_kategori'] . '" ' . $selected . '>' . $row['nama_kategori'] . '</option>';
-                        }
-                        ?>
-
-                    </select>
-                    <br><br>
-                    <button type="submit" value="simpan">INPUT</button>
-                </form>
+                <button type="submit" value="simpan">INPUT</button>
+            </form>
         </div>
     </div>
 
