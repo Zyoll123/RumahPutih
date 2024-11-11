@@ -74,6 +74,46 @@ body {
   background-color: #DDE9DD 29%;
 }
 
+.mid-info {
+  padding: 10px;
+  height: 370px;
+  border-bottom: 1px solid #9cc1e5;
+  border-radius: 10%;
+}
+
+.radio-place {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.custom-radio {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  font-weight: normal;
+  /* Normal weight by default */
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="radio"]:checked + label {
+  background-color: #9cc1e5;
+  color: white;
+  font-weight: bold;
+  border-color: #9cc1e5;
+}
+
+.custom-radio:hover {
+  background-color: #ddd;
+}
+
 .payment-methods, .kasir {
   width: 60%;
   padding: 10px;
