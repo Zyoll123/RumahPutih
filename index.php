@@ -34,7 +34,7 @@ if (!isset($_SESSION['id_kasir'])) {
                     <a href="edit.php"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-solid fa-gear"></i>Setting</a>
+                    <a href="setting.php"><i class="fa-solid fa-gear"></i>Setting</a>
                 </div>
                 <div class="side-bar-item">
                     <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
@@ -70,7 +70,7 @@ if (!isset($_SESSION['id_kasir'])) {
                     <p>Tanggal : </p>
                 </div>
                 <div class="buttom-info">
-                    <a href="transaksi.html">Place On Order</a>
+                    <a href="transaksi.php">Place On Order</a>
                 </div>
             </div>
         </div>

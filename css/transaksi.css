@@ -22,6 +22,7 @@ body {
   background-color: #ffff;
   border-right: 1px solid #979494;
   left: 0;
+  bottom: 0;
 }
 
 .side-bar img {
@@ -65,152 +66,8 @@ body {
 .log-out a i {
   margin-right: 10px;
 }
-.pembeli{
-  width: 60%;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #DDE9DD 29%;
-}
 
-.mid-info {
-  padding: 10px;
-  height: 370px;
-  border-bottom: 1px solid #9cc1e5;
-  border-radius: 10%;
-}
-
-.radio-place {
-  display: flex;
-  justify-content: space-evenly;
-  margin: 10px;
-}
-
-input[type="radio"] {
-  display: none;
-}
-
-.custom-radio {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #f1f1f1;
-  border-radius: 4px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  font-weight: normal;
-  /* Normal weight by default */
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-input[type="radio"]:checked + label {
-  background-color: #9cc1e5;
-  color: white;
-  font-weight: bold;
-  border-color: #9cc1e5;
-}
-
-.custom-radio:hover {
-  background-color: #ddd;
-}
-
-.payment-methods, .kasir {
-  width: 60%;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #DDE9DD 29%;
-}
-
-.kasir {
-  width: 60%;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #DDE9DD 29%;
-}
-.pembeli :required{
-  background-color: #9CC1E5;
-}
-
-.pembeli h2, .payment-methods h2, .kasir h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.pembeli button, .payment-methods button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  background-color: #a0c4ff;
-  color: #fff;
-}
-
-.pembeli input{
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.input-button:hover{
-  background-color: #007bff;
-}
-.kasir-info p {
-  font-size: 14px;
-  color: #333;
-}
-
-.bill-section {
-  margin-top: 43px;
-  margin-right: 70px;
-  position: absolute;
-  right: 6px;
-  top: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 35%;
-  flex: 1;
-  background-color: #e9f2e9;
-  padding: 15px;
-  border-radius: 8px;
-}
-.bill-section h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.bill-items p, .total p {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.total {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.complete-payment {
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  background-color: #a0c4ff;
-  color: #fff;
-  cursor: pointer;
-}
-
-.main-content {
-  margin-left: 250px;
-  margin-top: 50px;
+.formulir {
+  display: inline;
+  margin-left: 300px;
 }

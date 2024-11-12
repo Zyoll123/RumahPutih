@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>History</title>
+    <link rel="stylesheet" href="css/history.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
-
 <body>
     <div class="container">
         <div class="big-three">
@@ -23,7 +22,7 @@
                     <a href="edit.php"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-solid fa-gear"></i>Setting</a>
+                    <a href="setting.php"><i class="fa-solid fa-gear"></i>Setting</a>
                 </div>
                 <div class="side-bar-item">
                     <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
@@ -32,10 +31,31 @@
                     <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
-        </div>
+            <div class="table-container">
+                <h1>History</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id Transaksi</th>
+                            <th>Id Pembeli</th>
+                            <th>Id Kasir</th>
+                            <th>Tgl Pembelian</th>
+                            <th>Total Pembayaran</th>
+                            <th>Metode Pembayaran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Pembeli1</td>
+                            <td>7064</td>
+                            <td>19-09-2019</td>
+                            <td>274.000</td>
+                            <td>Cash</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
     </div>
-
-    <script src="js/script.js"></script>
 </body>
-
 </html>

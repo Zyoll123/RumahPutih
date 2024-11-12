@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+  
+body {
+    background-color: #dde9dd;
+}
+  
+.big-three {
+    display: flex;
+    justify-content: flex-start;
+}
+  
+.side-bar {
+    display: inline;
+    position: fixed;
+    height: 100%;
+    width: 200px;
+    background-color: #ffff;
+    border-right: 1px solid #979494;
+    left: 0;
+}
+  
+.side-bar img {
+    width: 150px;
+    margin: 20px;
+}
+  
+.side-bar-item {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+}
+  
+.side-bar-item:hover a {
+    color: #9cc1e5;
+}
+  
+.side-bar-item a {
+    text-decoration: none;
+    color: black;
+}
+  
+.side-bar-item a i {
+    margin-right: 10px;
+}
+  
+.log-out {
+    margin-top: 170px;
+    margin-left: 20px;
+}
+  
+.log-out:hover a {
+    color: #9cc1e5;
+}
+  
+.log-out a {
+    text-decoration: none;
+    color: black;
+}
+  
+.log-out a i {
+    margin-right: 10px;
+}
+
+.table-container {
+    width: 80%;
+    max-width: 1200px;
+    margin-left: 230px;
+    margin-top: 30px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #F5F5F5;
+}
+
+thead tr {
+    background-color: #41729F;
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #B0C4DE;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #87AFC7;
+}
+
+th {
+    font-weight: bold;
+}

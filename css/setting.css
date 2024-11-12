@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+  
+body {
+    background-color: #dde9dd;
+}
+  
+.big-three {
+    display: flex;
+    justify-content: flex-start;
+}
+  
+.side-bar {
+    display: inline;
+    position: fixed;
+    height: 100%;
+    width: 200px;
+    background-color: #ffff;
+    border-right: 1px solid #979494;
+    left: 0;
+}
+  
+.side-bar img {
+    width: 150px;
+    margin: 20px;
+}
+  
+.side-bar-item {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+}
+  
+.side-bar-item:hover a {
+    color: #9cc1e5;
+}
+  
+.side-bar-item a {
+    text-decoration: none;
+    color: black;
+}
+  
+.side-bar-item a i {
+    margin-right: 10px;
+}
+  
+.log-out {
+    margin-top: 170px;
+    margin-left: 20px;
+}
+  
+.log-out:hover a {
+    color: #9cc1e5;
+}
+  
+.log-out a {
+    text-decoration: none;
+    color: black;
+}
+  
+.log-out a i {
+    margin-right: 10px;
+}
+
+.button {
+    margin-left: 635px;
+    margin-top: 250px;
+}
+
+.edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+    padding: 10px;
+    background-color: #9cc1e5;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit-button:hover a {
+    color: #4a97e4;
+  }
+  
+.edit-button a {
+    text-decoration: none;
+    color: black;
+}
