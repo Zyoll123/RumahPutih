@@ -19,7 +19,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $nama = $row['nama'];
     $no_meja = $row['no_meja'];
-    $payment = $row['nama_metode'];
+    $nama_metode = $row['nama_metode'];
     $tgl_transaksi = $row['tgl_transaksi'];
 } else {
     echo "Data tidak ditemukan.";

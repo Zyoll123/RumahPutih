@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setting</title>
-    <link rel="stylesheet" href="css/setting.css">
+    <link rel="stylesheet" href="css/editKP.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
@@ -31,14 +31,42 @@
                     <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
-        <div class="button">
-            <button class="edit-button"><i class="fa-regular fa-pen-to-square"></i>
-                <a href="kasir.php">Edit Kasir</a>
-            </button>
+        </div>
+        <div class="tabel">
+            <table border="1">
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>No HP</th>
+                    <th>Aksi</th>
+                </tr>
+                <?php 
+                include 'konek.php';
+                $no = 1;
+
+                $result = $conn->query("SELECT * FROM kasir");
+
+                if ($result) {
+                    while ($d = $result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo htmlspecialchars($d['username']); ?></td>
+                    <td><?php echo htmlspecialchars($d['no_telp']); ?></td>
+                    <td>
+                        <a href="editkasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">EDIT</a>
+                        <a href="hapuskasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">HAPUS</a>
+                    </td>
+                </tr>
+                <?php
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>Tidak ada data kasir.</td></tr>";
+                }
+                ?>
+            </table>
             <br>
-            <button class="edit-button"><i class="fa-regular fa-pen-to-square"></i>
-                <a href="pembeli.php">Edit Pembeli</a>
-            </button>
+            <a href="sign-up.html">tambah Siswa</a>
         </div>
     </div>
 </body>

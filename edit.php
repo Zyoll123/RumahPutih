@@ -30,7 +30,7 @@
                     <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
                 </div>
                 <div class="log-out">
-                    <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                    <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
             <div class="tambah-menu">

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setting</title>
-    <link rel="stylesheet" href="css/setting.css">
+    <link rel="stylesheet" href="css/editKP.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
@@ -28,17 +28,38 @@
                     <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
                 </div>
                 <div class="log-out">
-                    <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                    <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
-        <div class="button">
-            <button class="edit-button"><i class="fa-regular fa-pen-to-square"></i>
-                <a href="editkasir.php">Edit Kasir</a>
-            </button>
-            <br>
-            <button class="edit-button"><i class="fa-regular fa-pen-to-square"></i>
-                <a href="editpembeli.php">Edit Pembeli</a>
-            </button>
+        </div>
+        <div class="tabel">
+            <table border="1">
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>No Meja</th>
+                </tr>
+                <?php 
+                include 'konek.php';
+                $no = 1;
+
+                $result = $conn->query("SELECT * FROM pembeli");
+
+                while ($d = $result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $d['nama']; ?></td>
+                    <td><?php echo $d['no_meja']; ?></td>
+                    <td>
+                        <a href=""></a>
+                        <a href=""></a>
+                    </td>
+                </tr>
+                <?php
+                }
+                ?>
+            </table>
         </div>
     </div>
 </body>
