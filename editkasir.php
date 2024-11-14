@@ -29,7 +29,7 @@
                 <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
             </div>
             <div class="log-out">
-                <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
             </div>
         </div>
 

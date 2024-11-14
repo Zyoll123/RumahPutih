@@ -28,7 +28,7 @@
                     <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
                 </div>
                 <div class="log-out">
-                    <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                    <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
             <div class="table-container">
@@ -36,26 +36,50 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Id Transaksi</th>
-                            <th>Id Pembeli</th>
+                            <th>Tgl.Transaksi</th>
+                            <th>Total</th>
                             <th>Id Kasir</th>
-                            <th>Tgl Pembelian</th>
-                            <th>Total Pembayaran</th>
-                            <th>Metode Pembayaran</th>
+                            <th>Id Pembeli</th>
+                            <th>Id Payment</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+
+$koneksi = mysqli_connect("localhost", "root", "", "rumahputih");
+
+// Check connection
+if (mysqli_connect_errno()){
+    echo "Koneksi database gagal : " . mysqli_connect_error();
+}
+?>
+<?php
+                            $no = 1;
+                            $result = $koneksi->query("SELECT * FROM transaksi");
+                            if ($result) {
+                                while($d = $result->fetch_assoc()) {
+                        ?>
                         <tr>
-                            <td>1</td>
-                            <td>Pembeli1</td>
-                            <td>7064</td>
-                            <td>19-09-2019</td>
-                            <td>274.000</td>
-                            <td>Cash</td>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $d['id_transaksi']; ?></td>
+                            <td><?php echo $d['tgl_transaksi']; ?></td>
+                            <td><?php echo $d['total']; ?></td>
+                            <td><?php echo $d['id_kasir']; ?></td>
+                            <td><?php echo $d['id_pembeli']; ?></td>
+                            <td><?php echo $d['id_payment']; ?></td>
                         </tr>
+                        <?php
+                                }
+                            } else {
+                                echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>
+        </div>
     </div>
 </body>
 </html>
