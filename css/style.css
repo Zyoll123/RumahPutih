@@ -270,3 +270,7 @@ input[type="radio"]:checked + label {
      -webkit-appearance: none;
      margin: 0;
  }
+ .button input{
+  margin-bottom: 20px;
+  justify-content: center;
+ }

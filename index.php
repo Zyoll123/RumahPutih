@@ -92,6 +92,10 @@ if (!isset($_SESSION['id_kasir'])) {
                         <input type="number" class="numberInput" value="0" min="0" max="1000">
                         <button class="plusBtn">+</button>
                     </div>
+                    <div class="tambah">
+                    <br>
+                    <button class="input">tambah produk</button>
+                    </div>
                 </div>
             </div>
         </div>

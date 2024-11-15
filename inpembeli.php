@@ -14,7 +14,7 @@ $conn->begin_transaction();
 
 try {
     // 1. Simpan data ke tabel pembeli
-    $sql_pembeli = "INSERT INTO pembeli (nama, no_meja) VALUES ('$nama', '$no_meja')";
+    $sql_pembeli = "INSERT INTO pembeli (nama, id_meja) VALUES ('$nama', '$id_meja')";
     if ($conn->query($sql_pembeli) !== TRUE) {
         throw new Exception("Gagal menyimpan data pembeli: " . $conn->error);
     }

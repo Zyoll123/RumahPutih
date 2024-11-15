@@ -43,7 +43,7 @@
                         <input type="text" id="nama" name="nama" required><br><br>
 
                         <label for="no_meja">Nomor Meja:</label>
-                        <input type="number" id="no_meja" name="no_meja" required><br><br>
+                        <input type="number" id="no_meja" name="id_meja" required><br><br>
 
                         <p>Metode Pembayaran:</p>
 
