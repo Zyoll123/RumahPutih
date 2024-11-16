@@ -37,7 +37,7 @@ if (!isset($_SESSION['id_kasir'])) {
                     <a href="setting.php"><i class="fa-solid fa-gear"></i>Setting</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
+                    <a href="profil.php"><i class="fa-regular fa-user"></i>Profil</a>
                 </div>
                 <div class="log-out">
                     <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
