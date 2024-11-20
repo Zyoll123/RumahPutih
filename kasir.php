@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="css/editKP.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <div class="big-three">
@@ -16,7 +18,7 @@
                     <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-regular fa-file-lines"></i>History</a>
+                    <a href="history.php"><i class="fa-regular fa-file-lines"></i>History</a>
                 </div>
                 <div class="side-bar-item">
                     <a href="edit.php"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
@@ -25,7 +27,7 @@
                     <a href="setting.php"><i class="fa-solid fa-gear"></i>Setting</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
+                    <a href="profil.php"><i class="fa-regular fa-user"></i>Profil</a>
                 </div>
                 <div class="log-out">
                     <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
@@ -40,7 +42,7 @@
                     <th>No HP</th>
                     <th>Aksi</th>
                 </tr>
-                <?php 
+                <?php
                 include 'konek.php';
                 $no = 1;
 
@@ -49,15 +51,15 @@
                 if ($result) {
                     while ($d = $result->fetch_assoc()) {
                 ?>
-                <tr>
-                    <td><?php echo $no++; ?></td>
-                    <td><?php echo htmlspecialchars($d['username']); ?></td>
-                    <td><?php echo htmlspecialchars($d['no_telp']); ?></td>
-                    <td>
-                        <a href="editkasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">EDIT</a>
-                        <a href="hapuskasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">HAPUS</a>
-                    </td>
-                </tr>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo htmlspecialchars($d['username']); ?></td>
+                            <td><?php echo htmlspecialchars($d['no_telp']); ?></td>
+                            <td>
+                                <a href="editkasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">EDIT</a>
+                                <a href="hapuskasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">HAPUS</a>
+                            </td>
+                        </tr>
                 <?php
                     }
                 } else {
@@ -70,4 +72,5 @@
         </div>
     </div>
 </body>
+
 </html>

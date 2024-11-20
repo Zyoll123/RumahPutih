@@ -11,6 +11,7 @@ if (!isset($_SESSION['id_kasir'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +26,7 @@ if (!isset($_SESSION['id_kasir'])) {
             <div class="side-bar">
                 <img src="assets/Logo Rumah Putih.png" alt="logo">
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-solid fa-house"></i>Home Page</a>
+                    <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
                 </div>
                 <div class="side-bar-item">
                     <a href="history.php"><i class="fa-regular fa-file-lines"></i>History</a>
@@ -74,35 +75,35 @@ if (!isset($_SESSION['id_kasir'])) {
                 </div>
             </div>
         </div>
-        <?php 
-    include 'konek.php';
-    $data = mysqli_query($conn, "SELECT * FROM produk");
-    while($d = mysqli_fetch_array($data)){
-?>
-    <div class="menu-container">
-        <div class="menu">
-            <p><?php echo $d['nama_produk'] ?></p>
-            <div class="menu-item">
-                <!-- Menampilkan gambar BLOB sebagai base64 -->
-                <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
-                <div class="menu-info">
-                    <p><?php echo $d['harga_produk']?></p>
-                    <div class="input-number-container">
-                        <button class="minusBtn">-</button>
-                        <input type="number" class="numberInput" value="0" min="0" max="1000">
-                        <button class="plusBtn">+</button>
-                    </div>
-                    <div class="tambah">
-                    <br>
-                    <button class="input">tambah produk</button>
+        <?php
+        include 'konek.php';
+        $data = mysqli_query($conn, "SELECT * FROM produk");
+        while ($d = mysqli_fetch_array($data)) {
+        ?>
+            <div class="menu-container">
+                <div class="menu">
+                    <p><?php echo $d['nama_produk'] ?></p>
+                    <div class="menu-item">
+                        <!-- Menampilkan gambar BLOB sebagai base64 -->
+                        <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
+                        <div class="menu-info">
+                            <p><?php echo $d['harga_produk'] ?></p>
+                            <div class="input-number-container">
+                                <button class="minusBtn">-</button>
+                                <input type="number" class="numberInput" value="0" min="0" max="1000">
+                                <button class="plusBtn">+</button>
+                            </div>
+                            <div class="tambah">
+                                <br>
+                                <button class="input">tambah produk</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-<?php 
-    }
-?>
+        <?php
+        }
+        ?>
     </div>
 
     <script src="js/script.js"></script>

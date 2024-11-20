@@ -17,22 +17,22 @@
                 <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
             </div>
             <div class="side-bar-item">
-                <a href="#"><i class="fa-regular fa-file-lines"></i>History</a>
+                <a href="history.php"><i class="fa-regular fa-file-lines"></i>History</a>
             </div>
             <div class="side-bar-item">
-                <a href="edit.html"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
+                <a href="edit.php"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
             </div>
             <div class="side-bar-item">
-                <a href="#"><i class="fa-solid fa-gear"></i>Setting</a>
+                <a href="setting.php"><i class="fa-solid fa-gear"></i>Setting</a>
             </div>
             <div class="side-bar-item">
-                <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
+                <a href="profil.php"><i class="fa-regular fa-user"></i>Profil</a>
             </div>
             <div class="log-out">
                 <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
             </div>
         </div>
-        
+
         <div class="isi">
             <div class="judul">
                 <h1>Edit Menu</h1>
@@ -44,7 +44,7 @@
             // Cek apakah 'id_produk' ada di URL
             if (isset($_GET['id_produk'])) {
                 $id_produk = $_GET['id_produk'];
-                
+
                 // Query untuk mengambil data produk berdasarkan id_produk
                 $query_produk = "SELECT * FROM produk WHERE id_produk = '$id_produk'";
                 $result_produk = mysqli_query($conn, $query_produk);
@@ -60,7 +60,7 @@
                 // Query untuk mengambil data kategori
                 $query_kategori = "SELECT id_kategori, nama_kategori FROM kategori";
                 $result_kategori = mysqli_query($conn, $query_kategori);
-                
+
                 if (!$result_kategori) {
                     die("Query kategori gagal: " . mysqli_error($conn));
                 }
@@ -72,7 +72,7 @@
 
             <form method="post" action="update.php" enctype="multipart/form-data">
                 <input type="hidden" name="id_produk" value="<?php echo htmlspecialchars($d['id_produk']); ?>">
-                
+
                 <div class="form-grup">
                     <input type="text" class="form-input" id="nama" name="nama_produk" value="<?php echo htmlspecialchars($d['nama_produk']); ?>" oninput="toggleLabel(this)">
                 </div>

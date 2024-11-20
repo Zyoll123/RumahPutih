@@ -12,25 +12,25 @@
 <body>
     <div class="container">
         <div class="big-three">
-            <div class="side-bar">
+        <div class="side-bar">
                 <img src="assets/Logo Rumah Putih.png" alt="logo">
                 <div class="side-bar-item">
                     <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-regular fa-file-lines"></i>History</a>
+                    <a href="history.php"><i class="fa-regular fa-file-lines"></i>History</a>
                 </div>
                 <div class="side-bar-item">
                     <a href="edit.php"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-solid fa-gear"></i>Setting</a>
+                    <a href="setting.php"><i class="fa-solid fa-gear"></i>Setting</a>
                 </div>
                 <div class="side-bar-item">
-                    <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
+                    <a href="profil.php"><i class="fa-regular fa-user"></i>Profil</a>
                 </div>
                 <div class="log-out">
-                    <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                    <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
             <div class="formulir">
@@ -42,8 +42,42 @@
                         <label for="nama">Nama:</label>
                         <input type="text" id="nama" name="nama" required><br><br>
 
-                        <label for="no_meja">Nomor Meja:</label>
-                        <input type="number" id="no_meja" name="id_meja" required><br><br>
+                        <?php
+                        include 'konek.php';
+
+                        // Query untuk mengambil data meja
+                        $sql = "SELECT no_meja, status_meja FROM meja";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            echo "<h2>Daftar Meja</h2>";
+                            echo "<table border='1'>
+        <tr>
+            <th>Nomor Meja</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>";
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>
+            <td>" . htmlspecialchars($row['no_meja']) . "</td>
+            <td>" . htmlspecialchars($row['status_meja']) . "</td>";
+                                if ($row['status_meja'] == 'kosong') {
+                                    echo "<td><a href='ubah_status_meja.php?no_meja=" . $row['no_meja'] . "&status=terisi'>Tandai Terisi</a></td>";
+                                } else {
+                                    echo "<td><a href='ubah_status_meja.php?no_meja=" . $row['no_meja'] . "&status=kosong'>Tandai Kosong</a></td>";
+                                }
+                                echo "</tr>";
+                            }
+                            echo "</table>";
+                        } else {
+                            echo "Tidak ada data meja.";
+                        }
+
+                        $conn->close();
+                        ?>
+
+
+
 
                         <p>Metode Pembayaran:</p>
 

@@ -17,7 +17,7 @@
                 <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
             </div>
             <div class="side-bar-item">
-                <a href="#"><i class="fa-regular fa-file-lines"></i>History</a>
+                <a href="history.php"><i class="fa-regular fa-file-lines"></i>History</a>
             </div>
             <div class="side-bar-item">
                 <a href="edit.php"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
@@ -26,7 +26,7 @@
                 <a href="setting.php"><i class="fa-solid fa-gear"></i>Setting</a>
             </div>
             <div class="side-bar-item">
-                <a href="#"><i class="fa-regular fa-user"></i>Profil</a>
+                <a href="profil.php"><i class="fa-regular fa-user"></i>Profil</a>
             </div>
             <div class="log-out">
                 <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
@@ -43,7 +43,7 @@
 
             if (isset($_GET['id_kasir'])) {
                 $id_kasir = $_GET['id_kasir'];
-                
+
                 // Query untuk mengambil data kasir berdasarkan id_kasir
                 $query_kasir = "SELECT * FROM kasir WHERE id_kasir = '$id_kasir'";
                 $result_kasir = mysqli_query($conn, $query_kasir);
@@ -62,7 +62,7 @@
 
             <form method="post" action="updatekasir.php" enctype="multipart/form-data">
                 <input type="hidden" name="id_kasir" value="<?php echo htmlspecialchars($d['id_kasir']); ?>">
-                
+
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" class="form-input" id="username" name="username" value="<?php echo htmlspecialchars($d['username']); ?>" required>
