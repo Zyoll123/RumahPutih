@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Menyiapkan statement untuk menghindari SQL Injection
-    $query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+    $query = "SELECT * FROM kasir WHERE username = ? AND password = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Cek apakah user ditemukan
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        $_SESSION['id_admin'] = $user['id_admin'];
+        $_SESSION['id_kasir'] = $user['id_kasir'];
         $_SESSION['username'] = $user['username'];
         
-        header("Location: index.php");
+        header("Location: user.php");
         exit();
     } else {
         echo "Username atau password salah.";

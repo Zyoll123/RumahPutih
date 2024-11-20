@@ -68,7 +68,7 @@
                 ?>
             </table>
             <br>
-            <a href="sign-up.html">tambah Siswa</a>
+            <a href="sign-up.html">tambah kasir</a>
         </div>
     </div>
 </body>
