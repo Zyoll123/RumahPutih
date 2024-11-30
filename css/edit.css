@@ -93,34 +93,33 @@ body {
 }
 
 .menu-container {
-  display: grid;
-  grid-template-columns: repeat(8,1fr);
-  gap: 10px;
-  margin-left: 220px;
-  padding-top: 90px;
-  height: 100%;
-  overflow: auto;
+  display: flex;
+  flex-wrap: wrap; /* Membungkus elemen jika ruang tidak cukup */
+  gap: 10px;       /* Jarak antar-kotak */
+  justify-content: space-between; /* Sebar elemen dengan rata */
+  padding: 10px;
 }
 
 .menu {
-  width: 280px;
-  height: 250px;
-  background-color: #ffff;
-  border-radius: 10px;
-  margin-top: 10px;
+  flex: 0 0 calc(50% - 10px); /* Setiap menu mengambil 50% ruang */
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .menu img {
-  width: 200px;
-  height: 199px;
+  max-width: 100%;
+  height: auto;
 }
 
 .nama-menu {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 5px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .nama-menu p {
@@ -133,10 +132,23 @@ body {
 }
 
 .icon-edit a {
+    margin: 0;
     color: black;
     text-decoration: none;
 }
 
 .icon-edit a:hover {
     color: #9cc1e5;
+}
+
+@media screen and (max-width: 768px) {
+  .menu {
+    width: calc(50% - 20px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .menu {
+    width: 100%;
+  }
 }
