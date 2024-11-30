@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <?php 
+        <?php
         include 'konek.php';
 
         // Periksa koneksi ke database
@@ -50,25 +50,28 @@
 
         // Periksa apakah ada data
         if (mysqli_num_rows($data) > 0) {
-            while($d = mysqli_fetch_array($data)){
+            while ($d = mysqli_fetch_array($data)) {
         ?>
-        <div class="menu-container" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between;">
-        <div class="menu" style="flex: 0 0 calc(50% - 10px); box-sizing: border-box; padding: 10px; text-align: center; border: 1px solid #ddd; background-color: #f8f8f8; border-radius: 5px;">
-                <div class="nama-menu">
-                    <p><?php echo htmlspecialchars($d['nama_produk']); ?></p>
-                    <div class="icon-edit">
-                        <a href="editmenu.php?id_produk=<?php echo $d['id_produk']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a href="hapus.php?id=<?php echo $d['id_produk']; ?>"><i class="fa-regular fa-trash-can"></i></a>
+                <div class="menu-container" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between;">
+                    <div class="menu" style="flex: 0 0 calc(50% - 10px); box-sizing: border-box; padding: 10px; text-align: center; border: 1px solid #ddd; background-color: #f8f8f8; border-radius: 5px;">
+                        <div class="nama-menu">
+                            <p><?php echo htmlspecialchars($d['nama_produk']); ?></p>
+                            <div class="icon-edit">
+                                <a href="editmenu.php?id_produk=<?php echo $d['id_produk']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="hapus.php?id=<?php echo $d['id_produk']; ?>"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="gambar-menu">
+                                <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo htmlspecialchars($d['nama_produk']); ?>">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="menu-item">
-                    <div class="gambar-menu">
-                    <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo htmlspecialchars($d['nama_produk']); ?>">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php 
+        <?php
             }
         } else {
             echo "<p>Tidak ada produk yang tersedia.</p>";

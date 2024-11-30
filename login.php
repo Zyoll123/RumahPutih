@@ -3,44 +3,53 @@ session_start();
 include 'konek.php'; // Koneksi ke database
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = trim($_POST['username']); // Hapus spasi tambahan
+    $password = trim($_POST['password']); // Hapus spasi tambahan
     $login_as = $_POST['login_as'];
 
-    // Cek apakah login sebagai admin atau user
+    // Tentukan query berdasarkan peran (admin/kasir)
     if ($login_as === 'admin') {
-        $stmt = $conn->prepare("SELECT * FROM admin WHERE username = ?");
+        $stmt = $conn->prepare("SELECT * FROM admin WHERE username = ? AND password = ?");
     } else {
-        $stmt = $conn->prepare("SELECT * FROM kasir WHERE username = ?");
+        $stmt = $conn->prepare("SELECT * FROM kasir WHERE username = ? AND password = ?");
     }
 
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if ($stmt) {
+        $stmt->bind_param("ss", $username, $password);
 
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
+        // Eksekusi statement
+        if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            exit();
+        }
 
-        // Verifikasi password tanpa hash (langsung dibandingkan dengan database)
-        if ($password === $user['password']) {
-            $_SESSION['id'] = $user['id'];
+        $result = $stmt->get_result();
+
+        // Cek apakah user ditemukan
+        if ($result->num_rows == 1) {
+            $user = $result->fetch_assoc();
+
+            // Simpan data user ke sesi
+            $_SESSION['id_admin'] = $user['id_admin'] ?? $user['id_kasir']; // Gunakan ID sesuai peran
             $_SESSION['username'] = $user['username'];
 
-            // Arahkan ke halaman sesuai peran
-            if ($login_as === 'admin') {
-                header("Location: index.php");
+        if ($login_as === 'admin') {
+                    header("Location: index.php");
+                    exit();
             } else {
-                header("Location: kasir/user.php");
-            }
+                    header("Location: ..kasir/user.php");
+                    exit();
+                }
             exit();
         } else {
-            echo "Password salah.";
+            echo "Username atau password salah.";
         }
+
+        $stmt->close();
     } else {
-        echo "Username tidak ditemukan.";
+        echo "Terjadi kesalahan pada server.";
     }
-    $stmt->close();
 }
 
-$conn->close();
+$koneksi->close();
 ?>
