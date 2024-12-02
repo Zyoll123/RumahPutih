@@ -1,6 +1,42 @@
+<?php
+session_start();  // Memulai session
+
+// Mengecek apakah pengguna sudah login
+if (!isset($_SESSION['id_admin']) && !isset($_SESSION['id_kasir'])) {
+    header("Location: login.html");  // Redirect ke halaman login jika belum login
+    exit();
+}
+
+include 'konek.php';  // Koneksi ke database
+
+// Tentukan query berdasarkan ID yang disimpan di session
+if (isset($_SESSION['id_admin'])) {
+    // Admin
+    $id_user = $_SESSION['id_admin'];
+    $query = "SELECT * FROM admin WHERE id_admin = ?";
+} else {
+    // Kasir
+    $id_user = $_SESSION['id_kasir'];
+    $query = "SELECT * FROM kasir WHERE id_kasir = ?";
+}
+
+// Persiapkan dan jalankan query
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $id_user);  // Menggunakan ID yang sesuai dengan tipe data (integer)
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Cek apakah data ditemukan
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+} else {
+    echo "Data tidak ditemukan.";
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +44,6 @@
     <link rel="stylesheet" href="../css/profil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
-
 <body>
     <div class="big-three">
         <div class="side-bar">
@@ -26,55 +61,37 @@
                 <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
             </div>
         </div>
+
         <div class="container">
             <div class="profile-header">
-                <img src="../assets/user-avatar.png" alt="Azizah">
+                <img src="../assets/user-avatar.png" alt="Avatar">
                 <h1>Profil</h1><br>
-                <p>Azizah</p>
+                <p><?php echo $user['username']; ?></p> <!-- Menampilkan username -->
             </div>
             <div class="profile-card">
-                <h2>KASIR</h2>
-                <?php
-
-                $koneksi = mysqli_connect("localhost", "root", "", "rumahputih");
-
-                // Check connection
-                if (mysqli_connect_errno()) {
-                    echo "Koneksi database gagal : " . mysqli_connect_error();
-                }
-
-                $result = $koneksi->query("SELECT * FROM kasir LIMIT 1 OFFSET 1"); // Ambil hanya satu data kasir
-                if ($result) {
-                    $d = $result->fetch_assoc();
-                ?>
-                    <div class="profile-item">
-                        <span>Id Kasir :</span>
-                        <span><?php echo $d['id_kasir']; ?></span>
-                    </div>
-                    <div class="profile-item">
-                        <span>Username :</span>
-                        <span><?php echo $d['username']; ?></span>
-                    </div>
-                    <div class="profile-item">
-                        <span>No.Telp :</span>
-                        <span><?php echo $d['no_telp']; ?></span>
-                    </div>
-                    <div class="profile-item">
-                        <span>Password :</span>
-                        <span><?php echo $d['password']; ?></span>
-                    </div>
-                    <div class="profile-item">
-                        <span>Waktu Kerja :</span>
-                        <span>15.30 - 21.00</span>
-                    </div>
-                <?php
-                } else {
-                    echo "<p>Tidak ada data yang ditemukan.</p>";
-                }
-                ?>
+                <h2><?php echo isset($_SESSION['id_admin']) ? 'Admin' : 'Kasir'; ?></h2>
+                <div class="profile-item">
+                    <span>Id Pengguna :</span>
+                    <span><?php echo $user['id_admin'] ?? $user['id_kasir']; ?></span> <!-- Menampilkan ID sesuai peran -->
+                </div>
+                <div class="profile-item">
+                    <span>Username :</span>
+                    <span><?php echo $user['username']; ?></span>
+                </div>
+                <div class="profile-item">
+                    <span>No. Telp :</span>
+                    <span><?php echo $user['no_telp']; ?></span>
+                </div>
+                <div class="profile-item">
+                    <span>Password :</span>
+                    <span><?php echo $user['password']; ?></span>
+                </div>
+                <div class="profile-item">
+                    <span>Waktu Kerja :</span>
+                    <span>15.30 - 21.00</span>
+                </div>
             </div>
         </div>
     </div>
 </body>
-
 </html>

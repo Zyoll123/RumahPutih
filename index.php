@@ -55,7 +55,7 @@ if (!isset($_SESSION['id_admin'])) {
                     <div class="logo-info">
                         <img src="assets/Rectangle.png" alt="">
                         <div class="kasir-info">
-                            <p>Azizah</p>
+                            <p><?php echo $_SESSION['username']; ?></p>
                             <p>id:</p>
                         </div>
                     </div>
