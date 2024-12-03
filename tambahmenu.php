@@ -62,11 +62,6 @@
                 </label>
                 <div class="file-name" id="fileName">Tidak ada file yang dipilih.</div><br>
 
-                <div class="form-grup">
-                    <input type="text" class="form-input" id="stok" name="stok_produk" oninput="toggleLabel(this)">
-                    <label for="stok" class="form-label">Masukkan Stok Produk</label>
-                </div>
-
                 <!-- Select untuk memilih kategori -->
                 <label for="id_kategori">Pilih Kategori:</label>
                 <select name="id_kategori" id="id_kategori" required>

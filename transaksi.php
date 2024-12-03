@@ -47,16 +47,16 @@
                         <?php
                         include 'konek.php';
 
-                        $sql = "SELECT id_meja, no_meja, status_meja FROM meja";
+                        $sql = "SELECT no_meja, status_meja FROM meja";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
-                            echo '<label for="id_meja">Pilih Meja:</label>';
-                            echo '<select id="id_meja" name="id_meja" required>';
+                            echo '<label for="no_meja">Pilih Meja:</label>';
+                            echo '<select id="no_meja" name="no_meja" required>';
                             while ($row = $result->fetch_assoc()) {
                                 $status = htmlspecialchars($row['status_meja']);
                                 $disabled = $status === 'terisi' ? 'disabled' : '';
-                                echo '<option value="' . $row['id_meja'] . '" ' . $disabled . '>Meja ' . $row['no_meja'] . ' (' . $status . ')</option>';
+                                echo '<option value="' . $row['no_meja'] . '" ' . $disabled . '>Meja ' . $row['no_meja'] . ' (' . $status . ')</option>';
                             }
                             echo '</select><br><br>';
                         } else {

@@ -4,9 +4,9 @@ include 'konek.php';
 
 // Menangkap data dari form
 $nama = $_POST['nama'];
-$id_meja = $_POST['id_meja']; // Menggunakan id_meja dari tabel meja
+$no_meja = $_POST['no_meja']; // Menggunakan no_meja dari tabel meja
 $id_payment = $_POST['id_payment'];
-$id_kasir = $_SESSION['id_kasir']; // Ambil id_kasir dari sesi login
+$id_admin = $_SESSION['id_admin']; // Ambil id_kasir dari sesi login
 
 // Validasi input
 if (empty($nama) || empty($id_meja) || empty($id_payment)) {
@@ -19,8 +19,8 @@ $conn->begin_transaction();
 
 try {
     // 1. Simpan data ke tabel pembeli menggunakan prepared statements
-    $sql_pembeli = $conn->prepare("INSERT INTO pembeli (nama_pembeli, id_meja, id_payment) VALUES (?, ?, ?)");
-    $sql_pembeli->bind_param("sii", $nama, $id_meja, $id_payment);
+    $sql_pembeli = $conn->prepare("INSERT INTO pembeli (nama_pembeli, no_meja, id_payment) VALUES (?, ?, ?)");
+    $sql_pembeli->bind_param("sii", $nama, $no_meja, $id_payment);
 
     if (!$sql_pembeli->execute()) {
         throw new Exception("Gagal menyimpan data pembeli: " . $sql_pembeli->error);
@@ -42,8 +42,8 @@ try {
     $id_transaksi = $conn->insert_id;
 
     // 3. Update status meja menjadi 'terisi'
-    $sql_update_meja = $conn->prepare("UPDATE meja SET status_meja = 'terisi' WHERE id_meja = ?");
-    $sql_update_meja->bind_param("i", $id_meja);
+    $sql_update_meja = $conn->prepare("UPDATE meja SET status_meja = 'terisi' WHERE no_meja = ?");
+    $sql_update_meja->bind_param("i", $no_meja);
 
     if (!$sql_update_meja->execute()) {
         throw new Exception("Gagal mengupdate status meja: " . $sql_update_meja->error);
@@ -66,4 +66,3 @@ try {
     if (isset($sql_update_meja)) $sql_update_meja->close();
     $conn->close();
 }
-?>

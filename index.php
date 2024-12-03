@@ -80,6 +80,7 @@ if (!isset($_SESSION['id_admin'])) {
         $data = mysqli_query($conn, "SELECT * FROM produk");
         while ($d = mysqli_fetch_array($data)) {
         ?>
+            <div class="menu-juga">
             <div class="menu-container">
                 <div class="menu">
                     <p><?php echo $d['nama_produk'] ?></p>
@@ -100,6 +101,7 @@ if (!isset($_SESSION['id_admin'])) {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         <?php
         }

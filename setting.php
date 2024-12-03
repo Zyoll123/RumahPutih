@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <link rel="stylesheet" href="css/editKP.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <div class="big-three">
-        <div class="side-bar">
+            <div class="side-bar">
                 <img src="assets/Logo Rumah Putih.png" alt="logo">
                 <div class="side-bar-item">
                     <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
@@ -31,9 +33,9 @@
                     <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
-    </div>
+        </div>
 
-    <div class="tabel">
+        <div class="tabel">
             <table border="1">
                 <tr>
                     <th>No</th>
@@ -56,7 +58,10 @@
                             <td><?php echo htmlspecialchars($d['no_telp']); ?></td>
                             <td>
                                 <a href="editkasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">EDIT</a>
-                                <a href="hapuskasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">HAPUS</a>
+                                <a href="hapuskasir.php?id=<?php echo $d['id_kasir']; ?>"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus kasir ini?')">
+                                    hapus
+                                </a>
                             </td>
                         </tr>
                 <?php
@@ -71,4 +76,5 @@
         </div>
     </div>
 </body>
+
 </html>

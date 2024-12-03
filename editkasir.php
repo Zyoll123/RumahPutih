@@ -78,7 +78,6 @@
         </div>
     </div>
 
-    <script src="js/tambahmenu.js"></script>
 </body>
 
 </html>
