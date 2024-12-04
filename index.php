@@ -1,13 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['id_admin'])) {
+if (!isset($_SESSION['id'])) {
     header("Location: login.html");
     exit;
 }
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,10 +42,12 @@ if (!isset($_SESSION['id_admin'])) {
                 </div>
             </div>
             <div class="search-container">
-                <div class="form-grup">
-                    <input type="text" class="form-input" id="search-input" oninput="toggleLabel(this)">
-                    <label for="search-input" class="form-label">Search Menu</label>
-                </div>
+                <form method="GET" action="">
+                    <div class="form-grup">
+                        <input type="text" class="form-input" id="search-input" name="search" placeholder="Search Menu" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                        <button type="submit">Cari</button>
+                    </div>
+                </form>
             </div>
             <div class="order-information">
                 <div class="top-info">
@@ -75,37 +74,48 @@ if (!isset($_SESSION['id_admin'])) {
                 </div>
             </div>
         </div>
-        <?php
-        include 'konek.php';
-        $data = mysqli_query($conn, "SELECT * FROM produk");
-        while ($d = mysqli_fetch_array($data)) {
-        ?>
-            <div class="menu-juga">
-            <div class="menu-container">
-                <div class="menu">
-                    <p><?php echo $d['nama_produk'] ?></p>
-                    <div class="menu-item">
-                        <!-- Menampilkan gambar BLOB sebagai base64 -->
-                        <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
-                        <div class="menu-info">
-                            <p><?php echo $d['harga_produk'] ?></p>
-                            <div class="input-number-container">
-                                <button class="minusBtn">-</button>
-                                <input type="number" class="numberInput" value="0" min="0" max="1000">
-                                <button class="plusBtn">+</button>
-                            </div>
-                            <div class="tambah">
-                                <br>
-                                <button class="input">tambah produk</button>
+        <div class="menu-juga">
+            <?php
+            include 'konek.php';
+
+            // Tangkap input pencarian
+            $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+            // Query pencarian
+            $query = "SELECT * FROM produk WHERE nama_produk LIKE '%$search%'";
+            $data = mysqli_query($conn, $query);
+
+            // Tampilkan hasil pencarian
+            if (mysqli_num_rows($data) > 0) {
+                while ($d = mysqli_fetch_array($data)) {
+            ?>
+                    <div class="menu-container">
+                        <div class="menu">
+                            <p><?php echo $d['nama_produk']; ?></p>
+                            <div class="menu-item">
+                                <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
+                                <div class="menu-info">
+                                    <p>Rp <?php echo $d['harga_produk']; ?></p>
+                                    <div class="input-number-container">
+                                        <button class="minusBtn">-</button>
+                                        <input type="number" class="numberInput" value="0" min="0" max="1000">
+                                        <button class="plusBtn">+</button>
+                                    </div>
+                                    <div class="tambah">
+                                        <br>
+                                        <button class="input">tambah produk</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            </div>
-        <?php
-        }
-        ?>
+            <?php
+                }
+            } else {
+                echo "<p style='text-align: center; color: gray;'>Hasil tidak ditemukan.</p>";
+            }
+            ?>
+        </div>
     </div>
 
     <script src="js/script.js"></script>

@@ -30,16 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $result->fetch_assoc();
 
             // Simpan data user ke sesi
-            $_SESSION['id_admin'] = $user['id_admin'] ?? $user['id_kasir']; // Gunakan ID sesuai peran
+            $_SESSION['id'] = $login_as === 'admin' ? $user['id_admin'] : $user['id_kasir'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $login_as;
 
-        if ($login_as === 'admin') {
-                    header("Location: index.php");
-                    exit();
+            if ($login_as === 'admin') {
+                header("Location: index.php");
+                exit();
             } else {
-                    header("Location: user.php");
-                    exit();
-                }
+                header("Location: kasir.php");
+                exit();
+            }
             exit();
         } else {
             echo "Username atau password salah.";
@@ -52,4 +53,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
-?>

@@ -2,22 +2,23 @@
 session_start();  // Memulai session
 
 // Mengecek apakah pengguna sudah login
-if (!isset($_SESSION['id_admin']) && !isset($_SESSION['id_kasir'])) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['role'])) {
     header("Location: login.html");  // Redirect ke halaman login jika belum login
     exit();
 }
 
 include 'konek.php';  // Koneksi ke database
 
-// Tentukan query berdasarkan ID yang disimpan di session
-if (isset($_SESSION['id_admin'])) {
-    // Admin
-    $id_user = $_SESSION['id_admin'];
+// Tentukan query berdasarkan peran dari session
+if ($_SESSION['role'] === 'admin') {
+    $id_user = $_SESSION['id'];
     $query = "SELECT * FROM admin WHERE id_admin = ?";
-} else {
-    // Kasir
-    $id_user = $_SESSION['id_kasir'];
+} elseif ($_SESSION['role'] === 'kasir') {
+    $id_user = $_SESSION['id'];
     $query = "SELECT * FROM kasir WHERE id_kasir = ?";
+} else {
+    echo "Peran tidak valid.";
+    exit();
 }
 
 // Persiapkan dan jalankan query
@@ -76,10 +77,10 @@ if ($result->num_rows > 0) {
                 <p><?php echo $user['username']; ?></p> <!-- Menampilkan username -->
             </div>
             <div class="profile-card">
-                <h2><?php echo isset($_SESSION['id_admin']) ? 'Admin' : 'Kasir'; ?></h2>
+                <h2><?php echo $_SESSION['role'] === 'admin' ? 'Admin' : 'Kasir'; ?></h2>
                 <div class="profile-item">
                     <span>Id Pengguna :</span>
-                    <span><?php echo $user['id_admin'] ?? $user['id_kasir']; ?></span> <!-- Menampilkan ID sesuai peran -->
+                    <span><?php echo $_SESSION['id']; ?></span> <!-- Menampilkan ID sesuai peran -->
                 </div>
                 <div class="profile-item">
                     <span>Username :</span>
@@ -91,7 +92,7 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="profile-item">
                     <span>Password :</span>
-                    <span><?php echo $user['password']; ?></span>
+                    <span>********</span> <!-- Jangan tampilkan password -->
                 </div>
                 <div class="profile-item">
                     <span>Waktu Kerja :</span>
@@ -99,7 +100,7 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
             <div class="edit-profil">
-                <a href="editprofile.php?id_admin=<?php echo $_SESSION['id_admin']; ?>">Edit Profil</a>
+                <a href="editprofile.php?id=<?php echo $_SESSION['id']; ?>&role=<?php echo $_SESSION['role']; ?>">Edit Profil</a>
             </div>
         </div>
     </div>

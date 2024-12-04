@@ -2,22 +2,23 @@
 session_start();  // Memulai session
 
 // Mengecek apakah pengguna sudah login
-if (!isset($_SESSION['id_admin']) && !isset($_SESSION['id_kasir'])) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['role'])) {
     header("Location: login.html");  // Redirect ke halaman login jika belum login
     exit();
 }
 
 include 'konek.php';  // Koneksi ke database
 
-// Tentukan query berdasarkan ID yang disimpan di session
-if (isset($_SESSION['id_admin'])) {
-    // Admin
-    $id_user = $_SESSION['id_admin'];
+// Tentukan query berdasarkan peran dari session
+if ($_SESSION['role'] === 'admin') {
+    $id_user = $_SESSION['id'];
     $query = "SELECT * FROM admin WHERE id_admin = ?";
-} else {
-    // Kasir
-    $id_user = $_SESSION['id_kasir'];
+} elseif ($_SESSION['role'] === 'kasir') {
+    $id_user = $_SESSION['id'];
     $query = "SELECT * FROM kasir WHERE id_kasir = ?";
+} else {
+    echo "Peran tidak valid.";
+    exit();
 }
 
 // Persiapkan dan jalankan query
@@ -37,42 +38,44 @@ if ($result->num_rows > 0) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROFIL</title>
-    <link rel="stylesheet" href="../css/profil.css">
+    <link rel="stylesheet" href="css/profil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
-    <div class="big-three">
+<div class="big-three">
         <div class="side-bar">
-            <img src="../assets/Logo Rumah Putih.png" alt="logo">
+            <img src="assets/Logo Rumah Putih.png" alt="logo">
             <div class="side-bar-item">
-                <a href="user.php"><i class="fa-solid fa-house"></i>Home Page</a>
+                <a href="kasir.php"><i class="fa-solid fa-house"></i>Home Page</a>
             </div>
             <div class="side-bar-item">
-                <a href="history.php"><i class="fa-regular fa-file-lines"></i>History</a>
+                <a href="khistory.php"><i class="fa-regular fa-file-lines"></i>History</a>
             </div>
             <div class="side-bar-item">
-                <a href="profil.php"><i class="fa-regular fa-user"></i>Profil</a>
+                <a href="kprofil.php"><i class="fa-regular fa-user"></i>Profil</a>
             </div>
             <div class="log-out">
                 <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
             </div>
         </div>
 
+
         <div class="container">
             <div class="profile-header">
-                <img src="../assets/user-avatar.png" alt="Avatar">
                 <h1>Profil</h1><br>
                 <p><?php echo $user['username']; ?></p> <!-- Menampilkan username -->
             </div>
             <div class="profile-card">
-                <h2><?php echo isset($_SESSION['id_admin']) ? 'Admin' : 'Kasir'; ?></h2>
+                <h2><?php echo $_SESSION['role'] === 'admin' ? 'Admin' : 'Kasir'; ?></h2>
                 <div class="profile-item">
                     <span>Id Pengguna :</span>
-                    <span><?php echo $user['id_admin'] ?? $user['id_kasir']; ?></span> <!-- Menampilkan ID sesuai peran -->
+                    <span><?php echo $_SESSION['id']; ?></span> <!-- Menampilkan ID sesuai peran -->
                 </div>
                 <div class="profile-item">
                     <span>Username :</span>
@@ -84,14 +87,18 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="profile-item">
                     <span>Password :</span>
-                    <span><?php echo $user['password']; ?></span>
+                    <span>********</span> <!-- Jangan tampilkan password -->
                 </div>
                 <div class="profile-item">
                     <span>Waktu Kerja :</span>
                     <span>15.30 - 21.00</span>
                 </div>
             </div>
+            <div class="edit-profil">
+                <a href="editprofile.php?id=<?php echo $_SESSION['id']; ?>&role=<?php echo $_SESSION['role']; ?>">Edit Profil</a>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
