@@ -15,26 +15,31 @@
 
         <div class="isi">
             <div class="judul">
-                <h1>Edit Profile</h1>
+                <h1>Edit Profile Admin</h1>
             </div>
 
             <?php
             include 'konek.php';
 
-            if (isset($_GET['id_admin'])) {
-                $id_admin = $_GET['id_admin'];
+            // Validasi ID dan role
+            if (isset($_GET['id']) && $_GET['role'] === 'admin') {
+                $id_admin = $_GET['id'];
 
-                $query_produk = "SELECT * FROM admin WHERE id_admin = '$id_admin'";
-                $result_produk = mysqli_query($conn, $query_produk);
+                // Query untuk mengambil data admin
+                $query = "SELECT * FROM admin WHERE id_admin = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("i", $id_admin);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-                if ($result_produk && mysqli_num_rows($result_produk) > 0) {
-                    $d = mysqli_fetch_assoc($result_produk);
+                if ($result && $result->num_rows > 0) {
+                    $d = $result->fetch_assoc();
                 } else {
-                    echo "Data pengguna tidak ditemukan.";
+                    echo "Data admin tidak ditemukan.";
                     exit;
                 }
             } else {
-                echo "ID admin tidak disediakan.";
+                echo "ID atau role tidak valid.";
                 exit;
             }
             ?>
@@ -43,22 +48,21 @@
                 <input type="hidden" name="id_admin" value="<?php echo htmlspecialchars($d['id_admin']); ?>">
 
                 <div class="form-grup">
-                    <input type="text" class="form-input" id="nama" name="username" value="<?php echo htmlspecialchars($d['username']); ?>" oninput="toggleLabel(this)">
+                    <input type="text" class="form-input" name="username" value="<?php echo htmlspecialchars($d['username']); ?>" required>
                 </div>
 
                 <div class="form-grup">
-                    <input type="text" class="form-input" id="harga" name="no_telp" value="<?php echo htmlspecialchars($d['no_telp']); ?>" oninput="toggleLabel(this)">
+                    <input type="text" class="form-input" name="no_telp" value="<?php echo htmlspecialchars($d['no_telp']); ?>" required>
                 </div>
 
                 <div class="form-grup">
-                    <input type="password" class="form-input" id="stok" name="password" value="<?php echo htmlspecialchars($d['password']); ?>" oninput="toggleLabel(this)">
+                    <input type="password" class="form-input" name="password" placeholder="Masukkan password baru (opsional)">
                 </div>
 
-                <button type="submit" value="simpan">INPUT</button>
+                <button type="submit">Simpan</button>
             </form>
         </div>
     </div>
-
 </body>
 
 </html>
