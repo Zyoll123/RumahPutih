@@ -48,23 +48,8 @@ if ($result->num_rows > 0) {
 </head>
 
 <body>
-<div class="big-three">
-        <div class="side-bar">
-            <img src="assets/Logo Rumah Putih.png" alt="logo">
-            <div class="side-bar-item">
-                <a href="kasir.php"><i class="fa-solid fa-house"></i>Home Page</a>
-            </div>
-            <div class="side-bar-item">
-                <a href="khistory.php"><i class="fa-regular fa-file-lines"></i>History</a>
-            </div>
-            <div class="side-bar-item">
-                <a href="kprofil.php"><i class="fa-regular fa-user"></i>Profil</a>
-            </div>
-            <div class="log-out">
-                <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
-            </div>
-        </div>
-
+    <div class="big-three">
+        <?php include 'ksidebar.php'; ?>
 
         <div class="container">
             <div class="profile-header">
@@ -95,7 +80,7 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
             <div class="edit-profil">
-                <a href="editprofile.php?id=<?php echo $_SESSION['id']; ?>&role=<?php echo $_SESSION['role']; ?>">Edit Profil</a>
+                <a href="keditprofile.php?id=<?php echo $_SESSION['id']; ?>&role=<?php echo $_SESSION['role']; ?>">Edit Profil</a>
             </div>
         </div>
     </div>

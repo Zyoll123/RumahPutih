@@ -20,27 +20,7 @@ if (!isset($_SESSION['id'])) {
 <body>
     <div class="container">
         <div class="big-three">
-            <div class="side-bar">
-                <img src="assets/Logo Rumah Putih.png" alt="logo">
-                <div class="side-bar-item">
-                    <a href="index.php"><i class="fa-solid fa-house"></i>Home Page</a>
-                </div>
-                <div class="side-bar-item">
-                    <a href="history.php"><i class="fa-regular fa-file-lines"></i>History</a>
-                </div>
-                <div class="side-bar-item">
-                    <a href="edit.php"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
-                </div>
-                <div class="side-bar-item">
-                    <a href="setting.php"><i class="fa-solid fa-gear"></i>Setting</a>
-                </div>
-                <div class="side-bar-item">
-                    <a href="profil.php"><i class="fa-regular fa-user"></i>Profil</a>
-                </div>
-                <div class="log-out">
-                    <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
-                </div>
-            </div>
+            <?php include 'sidebar.php'; ?>
             <div class="search-container">
                 <form method="GET" action="">
                     <div class="form-grup">
@@ -55,7 +35,7 @@ if (!isset($_SESSION['id'])) {
                         <img src="assets/Rectangle.png" alt="">
                         <div class="kasir-info">
                             <p><?php echo $_SESSION['username']; ?></p>
-                            <p>id:</p>
+                            <p>id: <?php echo $_SESSION['id']; ?></p>
                         </div>
                     </div>
                 </div>
@@ -67,7 +47,7 @@ if (!isset($_SESSION['id'])) {
                         <input type="radio" id="pilihan-2" name="place" value="pilihan-2">
                         <label for="pilihan-2" class="custom-radio">Take Away</label>
                     </div>
-                    <p>Tanggal : </p>
+                    <p>Tanggal : <?php echo date("d-m-Y"); ?></p>
                 </div>
                 <div class="buttom-info">
                     <a href="transaksi.php">Place On Order</a>

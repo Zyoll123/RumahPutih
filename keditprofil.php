@@ -11,7 +11,7 @@
 
 <body>
     <div class="container">
-        <?php include 'sidebar.php'; ?>
+        <?php include 'ksidebar.php'; ?>
 
         <div class="isi">
             <div class="judul">
@@ -21,10 +21,14 @@
             <?php
             include 'konek.php';
 
-            if (isset($_GET['id_admin'])) {
-                $id_admin = $_GET['id_admin'];
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
 
-                $query_produk = "SELECT * FROM admin WHERE id_admin = '$id_admin'";
+                if ($_GET['role'] === 'admin') {
+                    $query_produk = "SELECT * FROM admin WHERE id_admin = '$id'";
+                } else {
+                    $query_produk = "SELECT * FROM kasir WHERE id_kasir = '$id'";
+                }                
                 $result_produk = mysqli_query($conn, $query_produk);
 
                 if ($result_produk && mysqli_num_rows($result_produk) > 0) {
@@ -34,13 +38,13 @@
                     exit;
                 }
             } else {
-                echo "ID admin tidak disediakan.";
+                echo "ID kasir tidak disediakan.";
                 exit;
             }
             ?>
 
-            <form method="post" action="updateadmin.php" enctype="multipart/form-data">
-                <input type="hidden" name="id_admin" value="<?php echo htmlspecialchars($d['id_admin']); ?>">
+            <form method="post" action="updatekasir.php" enctype="multipart/form-data">
+                <input type="hidden" name="id_kasir" value="<?php echo htmlspecialchars($d['id_kasir']); ?>">
 
                 <div class="form-grup">
                     <input type="text" class="form-input" id="nama" name="username" value="<?php echo htmlspecialchars($d['username']); ?>" oninput="toggleLabel(this)">
