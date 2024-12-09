@@ -4,7 +4,6 @@ include 'konek.php'; // Koneksi ke database
 // Mendapatkan data dari form
 $nama = mysqli_real_escape_string($conn, $_POST['nama_produk']);
 $harga = mysqli_real_escape_string($conn, $_POST['harga_produk']);
-$stok = mysqli_real_escape_string($conn, $_POST['stok_produk']);
 $id_kategori = mysqli_real_escape_string($conn, $_POST['id_kategori']);
 
 // Memproses gambar
@@ -18,8 +17,8 @@ if (isset($_FILES['gambar_produk']['tmp_name'])) {
 }
 
 // Query untuk menyimpan data produk termasuk gambar
-$query = "INSERT INTO produk (nama_produk, harga_produk, gambar_produk, stok_produk, id_kategori) 
-          VALUES ('$nama', '$harga', '$gambar_biner', '$stok', '$id_kategori')";
+$query = "INSERT INTO produk (nama_produk, harga_produk, gambar_produk, id_kategori) 
+          VALUES ('$nama', '$harga', '$gambar_biner', '$id_kategori')";
 
 // Eksekusi query
 if (mysqli_query($conn, $query)) {

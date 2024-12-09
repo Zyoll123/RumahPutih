@@ -4,10 +4,9 @@ include 'konek.php';
 $id_produk = $_POST['id_produk'];
 $nama_produk = $_POST['nama_produk'];
 $harga_produk = $_POST['harga_produk'];
-$stok_produk = $_POST['stok_produk'];
 $id_kategori = isset($_POST['id_kategori']) ? $_POST['id_kategori'] : null;
 
-// Ambil `id_kategori` lama dari database jika user tidak memilih kategori baru
+// Ambil id_kategori lama dari database jika user tidak memilih kategori baru
 if ($id_kategori === null) {
     $result = mysqli_query($conn, "SELECT id_kategori FROM produk WHERE id_produk = '$id_produk'");
     $row = mysqli_fetch_assoc($result);
@@ -23,7 +22,6 @@ if (!empty($_FILES['gambar_produk_baru']['tmp_name'])) {
     $query = "UPDATE produk SET 
                 nama_produk='$nama_produk',
                 harga_produk='$harga_produk',
-                stok_produk='$stok_produk',
                 gambar_produk='$gambar_produk_baru',
                 id_kategori='$id_kategori' 
               WHERE id_produk='$id_produk'";
@@ -32,7 +30,6 @@ if (!empty($_FILES['gambar_produk_baru']['tmp_name'])) {
     $query = "UPDATE produk SET 
                 nama_produk='$nama_produk',
                 harga_produk='$harga_produk',
-                stok_produk='$stok_produk',
                 id_kategori='$id_kategori' 
               WHERE id_produk='$id_produk'";
 }

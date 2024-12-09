@@ -39,7 +39,7 @@
                         ?>
                         <?php
                         $no = 1;
-                        $result = $koneksi->query("SELECT pembeli.nama, kasir.username, payment.nama_metode, transaksi.total, transaksi.id_transaksi, transaksi.tgl_transaksi
+                        $result = $koneksi->query("SELECT pembeli.nama_pembeli, kasir.username, payment.nama_metode, transaksi.total, transaksi.id_transaksi, transaksi.tgl_transaksi
                         FROM transaksi
                         JOIN pembeli ON transaksi.id_pembeli = pembeli.id_pembeli
                         JOIN kasir ON transaksi.id_kasir = kasir.id_kasir
@@ -53,7 +53,7 @@
                                     <td><?php echo $d['tgl_transaksi']; ?></td>
                                     <td><?php echo $d['total']; ?></td>
                                     <td><?php echo $d['username']; ?></td>
-                                    <td><?php echo $d['nama']; ?></td>
+                                    <td><?php echo $d['nama_pembeli']; ?></td>
                                     <td><?php echo $d['nama_metode']; ?></td>
                                 </tr>
                         <?php
