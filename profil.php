@@ -72,7 +72,7 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="profile-item">
                     <span>Password :</span>
-                    <span>********</span> <!-- Jangan tampilkan password -->
+                    <span></span> <!-- Jangan tampilkan password -->
                 </div>
                 <div class="profile-item">
                     <span>Waktu Kerja :</span>
@@ -80,7 +80,7 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
             <div class="edit-profil">
-                <a href="editprofile.php?id=<?php echo $_SESSION['id']; ?>&role=<?php echo $_SESSION['role']; ?>">Edit Profil</a>
+                <a href="editprofile.php">Edit Profil</a>
             </div>
         </div>
     </div>

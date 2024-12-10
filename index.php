@@ -4,6 +4,70 @@ if (!isset($_SESSION['id'])) {
     header("Location: login.html");
     exit;
 }
+
+include 'konek.php';
+
+// Tangkap input tambah produk
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
+    $id_produk = $_POST['id_produk'];
+    $quantity = $_POST['quantity'];
+
+    // Validasi data
+    if ($quantity > 0) {
+        $id_kasir = $_SESSION['id'];
+        $tanggal = date("Y-m-d");
+
+        // Cek apakah transaksi sudah ada untuk user ini
+        $query_check_transaksi = "SELECT id_transaksi FROM transaksi WHERE id_kasir = ? AND total = 0";
+        $stmt_check = $conn->prepare($query_check_transaksi);
+        $stmt_check->bind_param("i", $id_kasir);
+        $stmt_check->execute();
+        $result_check = $stmt_check->get_result();
+
+        if ($result_check->num_rows > 0) {
+            $row = $result_check->fetch_assoc();
+            $id_transaksi = $row['id_transaksi'];
+        } else {
+            // Buat transaksi baru
+            $query_transaksi = "INSERT INTO transaksi (tgl_transaksi, total, id_kasir, id_pembeli) VALUES (?, 0, ?, NULL)";
+            $stmt_transaksi = $conn->prepare($query_transaksi);
+            $stmt_transaksi->bind_param("si", $tanggal, $id_kasir);
+            $stmt_transaksi->execute();
+            $id_transaksi = $conn->insert_id;
+        }
+
+        // Ambil harga produk
+        $query_harga = "SELECT harga_produk FROM produk WHERE id_produk = ?";
+        $stmt_harga = $conn->prepare($query_harga);
+        $stmt_harga->bind_param("i", $id_produk);
+        $stmt_harga->execute();
+        $result_harga = $stmt_harga->get_result();
+
+        if ($result_harga->num_rows > 0) {
+            $row_harga = $result_harga->fetch_assoc();
+            $harga_produk = $row_harga['harga_produk'];
+            $subtotal = $harga_produk * $quantity;
+
+            // Tambahkan detail transaksi
+            $query_detail = "INSERT INTO detail_transaksi (id_transaksi, id_produk, jumlah, subtotal) VALUES (?, ?, ?, ?)";
+            $stmt_detail = $conn->prepare($query_detail);
+            $stmt_detail->bind_param("iiid", $id_transaksi, $id_produk, $quantity, $subtotal);
+            $stmt_detail->execute();
+
+            // Update total transaksi
+            $query_update_total = "UPDATE transaksi SET total = total + ? WHERE id_transaksi = ?";
+            $stmt_update = $conn->prepare($query_update_total);
+            $stmt_update->bind_param("di", $subtotal, $id_transaksi);
+            $stmt_update->execute();
+
+            echo "<script>alert('Produk berhasil ditambahkan ke transaksi!');</script>";
+        } else {
+            echo "<script>alert('Produk tidak ditemukan!');</script>";
+        }
+    } else {
+        echo "<script>alert('Jumlah produk harus lebih dari 0!');</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,12 +116,30 @@ if (!isset($_SESSION['id'])) {
                 <div class="buttom-info">
                     <a href="transaksi.php">Place On Order</a>
                 </div>
+                <div class="order-summary">
+                    <h4>Menu yang Dipesan:</h4>
+                    <ul>
+                        <?php
+                        $query_summary = "SELECT p.nama_produk, d.jumlah, d.subtotal FROM detail_transaksi d JOIN produk p ON d.id_produk = p.id_produk JOIN transaksi t ON d.id_transaksi = t.id_transaksi WHERE t.id_kasir = ? AND t.total > 0 ORDER BY d.id_detail DESC LIMIT 5";
+                        $stmt_summary = $conn->prepare($query_summary);
+                        $stmt_summary->bind_param("i", $_SESSION['id']);
+                        $stmt_summary->execute();
+                        $result_summary = $stmt_summary->get_result();
+
+                        if ($result_summary && $result_summary->num_rows > 0) {
+                            while ($row = $result_summary->fetch_assoc()) {
+                                echo "<li>{$row['nama_produk']} (x{$row['jumlah']}) - Rp {$row['subtotal']}</li>";
+                            }
+                        } else {
+                            echo "<li>Belum ada menu yang dipesan.</li>";
+                        }
+                        ?>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="menu-juga">
             <?php
-            include 'konek.php';
-
             // Tangkap input pencarian
             $search = isset($_GET['search']) ? $_GET['search'] : '';
 
@@ -76,15 +158,15 @@ if (!isset($_SESSION['id'])) {
                                 <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
                                 <div class="menu-info">
                                     <p>Rp <?php echo $d['harga_produk']; ?></p>
-                                    <div class="input-number-container">
-                                        <button class="minusBtn">-</button>
-                                        <input type="number" class="numberInput" value="0" min="0" max="1000">
-                                        <button class="plusBtn">+</button>
-                                    </div>
-                                    <div class="tambah">
-                                        <br>
-                                        <button class="input">tambah produk</button>
-                                    </div>
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="id_produk" value="<?php echo $d['id_produk']; ?>">
+                                        <div class="input-number-container">
+                                            <button type="button" class="minusBtn">-</button>
+                                            <input type="number" class="numberInput" name="quantity" value="1" min="1" max="1000">
+                                            <button type="button" class="plusBtn">+</button>
+                                        </div>
+                                        <button type="submit" name="add_product" class="input">Tambah Produk</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -15,44 +15,67 @@
 
         <div class="isi">
             <div class="judul">
-                <h1>Edit Profile Kasir</h1>
+                <h1>Edit Profile Admin</h1>
             </div>
 
             <?php
-            include 'konek.php';
+            session_start();
 
-            // Validasi ID dan role
-            if (isset($_GET['id']) && $_GET['role'] === 'kasir') {
-                $id_kasir = $_GET['id'];
+            // Mengecek apakah pengguna sudah login
+            if (!isset($_SESSION['id']) || !isset($_SESSION['role'])) {
+                header("Location: login.html");
+                exit();
+            }
 
-                // Query untuk mengambil data kasir
+            include 'konek.php'; // File koneksi database
+
+            // Tentukan query berdasarkan peran dari session
+            if ($_SESSION['role'] === 'admin') {
+                $id_user = $_SESSION['id'];
+                $query = "SELECT * FROM admin WHERE id_admin = ?";
+            } elseif ($_SESSION['role'] === 'kasir') {
+                $id_user = $_SESSION['id'];
                 $query = "SELECT * FROM kasir WHERE id_kasir = ?";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param("i", $id_kasir);
+            } else {
+                echo "Peran tidak valid.";
+                exit();
+            }
+
+            // Persiapkan dan jalankan query
+            if ($stmt = $conn->prepare($query)) {
+                $stmt->bind_param("i", $id_user);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
-                if ($result && $result->num_rows > 0) {
-                    $d = $result->fetch_assoc();
+                // Cek apakah data ditemukan
+                if ($result->num_rows > 0) {
+                    $user = $result->fetch_assoc();
                 } else {
-                    echo "Data kasir tidak ditemukan.";
-                    exit;
+                    echo "Data tidak ditemukan.";
+                    exit();
                 }
+
+                $stmt->close();
             } else {
-                echo "ID atau role tidak valid.";
-                exit;
+                echo "Kesalahan query.";
+                exit();
             }
+
             ?>
 
-            <form method="post" action="updatekasir.php" enctype="multipart/form-data">
-                <input type="hidden" name="id_kasir" value="<?php echo htmlspecialchars($d['id_kasir']); ?>">
+            <form method="post" action="updateadmin.php" enctype="multipart/form-data">
+                <?php if ($_SESSION['role'] === 'admin') : ?>
+                    <input type="hidden" name="id_admin" value="<?php echo htmlspecialchars($user['id_admin']); ?>">
+                <?php elseif ($_SESSION['role'] === 'kasir') : ?>
+                    <input type="hidden" name="id_kasir" value="<?php echo htmlspecialchars($user['id_kasir']); ?>">
+                <?php endif; ?>
 
                 <div class="form-grup">
-                    <input type="text" class="form-input" name="username" value="<?php echo htmlspecialchars($d['username']); ?>" required>
+                    <input type="text" class="form-input" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
                 </div>
 
                 <div class="form-grup">
-                    <input type="text" class="form-input" name="no_telp" value="<?php echo htmlspecialchars($d['no_telp']); ?>" required>
+                    <input type="text" class="form-input" name="no_telp" value="<?php echo htmlspecialchars($user['no_telp']); ?>" required>
                 </div>
 
                 <div class="form-grup">
@@ -61,6 +84,7 @@
 
                 <button type="submit">Simpan</button>
             </form>
+
         </div>
     </div>
 </body>
