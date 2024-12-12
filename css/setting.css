@@ -91,3 +91,8 @@ body {
     text-decoration: none;
     color: black;
 }
+
+table tr td th {
+    position: relative;
+    margin-left: 300px;
+}
