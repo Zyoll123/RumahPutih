@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="big-three">
-            <?php include 'ksidebar.php'; ?>
+            <?php include 'sidebar.php'; ?>
             <div class="table-container">
                 <h1>History</h1>
                 <table>
@@ -26,7 +26,6 @@
                             <th>Kembalian</th>
                             <th>Nama Kasir</th>
                             <th>Nama Pembeli</th>
-                            <th>Metode Payment</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,11 +40,10 @@
                         ?>
                         <?php
                         $no = 1;
-                        $result = $koneksi->query("SELECT pembeli.nama_pembeli, kasir.username, payment.nama_metode, transaksi.total, transaksi.id_transaksi, transaksi.tgl_transaksi, transaksi.uang_dibayar, transaksi.kembalian
+                        $result = $koneksi->query("SELECT pembeli.nama_pembeli, kasir.username,transaksi.total, transaksi.id_transaksi, transaksi.tgl_transaksi, transaksi.uang_dibayar, transaksi.kembalian
                         FROM transaksi
                         JOIN pembeli ON transaksi.id_pembeli = pembeli.id_pembeli
-                        JOIN kasir ON transaksi.id_kasir = kasir.id_kasir
-                        JOIN payment ON transaksi.id_payment = payment.id_payment");
+                        JOIN kasir ON transaksi.id_kasir = kasir.id_kasir");
                         if ($result) {
                             while ($d = $result->fetch_assoc()) {
                         ?>
@@ -58,7 +56,6 @@
                                     <td><?php echo $d['kembalian']; ?></td>
                                     <td><?php echo $d['username']; ?></td>
                                     <td><?php echo $d['nama_pembeli']; ?></td>
-                                    <td><?php echo $d['nama_metode']; ?></td>
                                 </tr>
                         <?php
                             }

@@ -12,27 +12,27 @@
 <body>
     <div class="container">
         <div class="big-three">
-        <?php include 'sidebar.php';?>
+            <?php include 'sidebar.php'; ?>
             <div class="tambah-menu">
                 <button><a href="tambahmenu.php"><i class="fa-solid fa-plus"></i>Tambah Menu</a></button>
             </div>
         </div>
 
-        <?php
-        include 'konek.php';
+        <div class="menu-container" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between;">
+            <?php
+            include 'konek.php';
 
-        // Periksa koneksi ke database
-        if (!$conn) {
-            die("Koneksi gagal: " . mysqli_connect_error());
-        }
+            // Periksa koneksi ke database
+            if (!$conn) {
+                die("Koneksi gagal: " . mysqli_connect_error());
+            }
 
-        $data = mysqli_query($conn, "SELECT * FROM produk");
+            $data = mysqli_query($conn, "SELECT * FROM produk");
 
-        // Periksa apakah ada data
-        if (mysqli_num_rows($data) > 0) {
-            while ($d = mysqli_fetch_array($data)) {
-        ?>
-                <div class="menu-container" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between;">
+            // Periksa apakah ada data
+            if (mysqli_num_rows($data) > 0) {
+                while ($d = mysqli_fetch_array($data)) {
+            ?>
                     <div class="menu" style="flex: 0 0 calc(50% - 10px); box-sizing: border-box; padding: 10px; text-align: center; border: 1px solid #ddd; background-color: #f8f8f8; border-radius: 5px;">
                         <div class="nama-menu">
                             <p><?php echo htmlspecialchars($d['nama_produk']); ?></p>
@@ -50,13 +50,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
-        <?php
+            <?php
+                }
+            } else {
+                echo "<p>Tidak ada produk yang tersedia.</p>";
             }
-        } else {
-            echo "<p>Tidak ada produk yang tersedia.</p>";
-        }
-        ?>
+            ?>
+        </div>
     </div>
 </body>
 

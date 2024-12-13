@@ -6,7 +6,7 @@ include 'konek.php';
 $id_transaksi = $_GET['id_transaksi'];
 
 // Query untuk mengambil data dari tabel transaksi dan pembeli
-$sql = "SELECT pembeli.nama_pembeli, pembeli.no_meja, transaksi.id_transaksi, transaksi.total, transaksi.kembalian, transaksi.tgl_transaksi 
+$sql = "SELECT pembeli.nama_pembeli, transaksi.no_meja, transaksi.id_transaksi, transaksi.total, transaksi.kembalian, transaksi.tgl_transaksi 
         FROM transaksi 
         JOIN pembeli ON transaksi.id_pembeli = pembeli.id_pembeli 
         WHERE transaksi.id_transaksi = '$id_transaksi'";
@@ -82,5 +82,9 @@ $conn->close();
 
     <p><strong>Total Pembelian: <?php echo htmlspecialchars($total); ?></strong></p>
     <p>Kembalian: <?php echo htmlspecialchars($kembalian); ?></p>
+
+    <div class="kembali">
+        <a href="kasir.php">kembali ke pemesanan</a>
+    </div>
 </body>
 </html>

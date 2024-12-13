@@ -72,7 +72,7 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="profile-item">
                     <span>Password :</span>
-                    <span></span> <!-- Jangan tampilkan password -->
+                    <span>******</span> <!-- Jangan tampilkan password -->
                 </div>
                 <div class="profile-item">
                     <span>Waktu Kerja :</span>

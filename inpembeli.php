@@ -65,8 +65,8 @@ $conn->begin_transaction();
 
 try {
     // 1. Simpan data ke tabel pembeli menggunakan prepared statements
-    $sql_pembeli = $conn->prepare("INSERT INTO pembeli (nama_pembeli, no_meja) VALUES (?, ?)");
-    $sql_pembeli->bind_param("si", $nama, $no_meja);
+    $sql_pembeli = $conn->prepare("INSERT INTO pembeli (nama_pembeli) VALUES (?)");
+    $sql_pembeli->bind_param("s", $nama);
 
     if (!$sql_pembeli->execute()) {
         throw new Exception("Gagal menyimpan data pembeli: " . $sql_pembeli->error);
@@ -76,8 +76,8 @@ try {
     $id_pembeli = $conn->insert_id;
 
     // 2. Simpan data ke tabel transaksi
-    $sql_transaksi = $conn->prepare("INSERT INTO transaksi (id_pembeli, id_kasir, tgl_transaksi, uang_dibayar) VALUES (?, ?, NOW(), ?)");
-    $sql_transaksi->bind_param("iii", $id_pembeli, $id_kasir, $uang_dibayar);
+    $sql_transaksi = $conn->prepare("INSERT INTO transaksi (id_pembeli, id_kasir, no_meja, tgl_transaksi, uang_dibayar) VALUES (?, ?, ?, NOW(), ?)");
+    $sql_transaksi->bind_param("iiii", $id_pembeli, $id_kasir, $no_meja, $uang_dibayar);
 
     if (!$sql_transaksi->execute()) {
         throw new Exception("Gagal menyimpan data transaksi: " . $sql_transaksi->error);

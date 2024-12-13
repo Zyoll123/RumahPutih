@@ -1,9 +1,81 @@
 <?php
 session_start();
+include 'konek.php';
+
+// Periksa apakah pengguna sudah login
 if (!isset($_SESSION['id'])) {
     header("Location: login.html");
     exit;
 }
+
+// Mendapatkan tanggal hari ini
+$tanggal_hari_ini = date('Y-m-d');
+
+// Cek apakah data dashboard untuk hari ini sudah ada
+$sql_check_dashboard = $conn->prepare("SELECT * FROM dashboard WHERE tanggal = ?");
+$sql_check_dashboard->bind_param("s", $tanggal_hari_ini);
+$sql_check_dashboard->execute();
+$result_dashboard = $sql_check_dashboard->get_result();
+
+// Query untuk menghitung pendapatan hari ini
+$sql_pendapatan = $conn->prepare(
+    "SELECT SUM(total) AS pendapatan_hari_ini FROM transaksi WHERE DATE(tgl_transaksi) = ?"
+);
+$sql_pendapatan->bind_param("s", $tanggal_hari_ini);
+$sql_pendapatan->execute();
+$result_pendapatan = $sql_pendapatan->get_result();
+$pendapatan_hari_ini = $result_pendapatan->fetch_assoc()['pendapatan_hari_ini'] ?? 0;
+
+// Query untuk menghitung total produk yang terjual hari ini
+$sql_produk_terjual = $conn->prepare(
+    "SELECT SUM(detail_transaksi.quantity) AS total_produk_terjual 
+     FROM detail_transaksi 
+     INNER JOIN transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi 
+     WHERE DATE(transaksi.tgl_transaksi) = ?"
+);
+$sql_produk_terjual->bind_param("s", $tanggal_hari_ini);
+$sql_produk_terjual->execute();
+$result_produk_terjual = $sql_produk_terjual->get_result();
+$total_produk_terjual = $result_produk_terjual->fetch_assoc()['total_produk_terjual'] ?? 0;
+
+// Query untuk menghitung total pembeli hari ini
+$sql_total_pembeli = $conn->prepare(
+    "SELECT COUNT(DISTINCT id_pembeli) AS total_pembeli 
+     FROM transaksi 
+     WHERE DATE(tgl_transaksi) = ?"
+);
+$sql_total_pembeli->bind_param("s", $tanggal_hari_ini);
+$sql_total_pembeli->execute();
+$result_total_pembeli = $sql_total_pembeli->get_result();
+$total_pembeli = $result_total_pembeli->fetch_assoc()['total_pembeli'] ?? 0;
+
+if ($result_dashboard->num_rows === 0) {
+    // Jika belum ada, masukkan data ringkasan untuk hari ini
+    $sql_insert_dashboard = $conn->prepare(
+        "INSERT INTO dashboard (tanggal, total_pendapatan, total_produk_terjual, total_pembeli)
+         VALUES (?, ?, ?, ?)"
+    );
+    $sql_insert_dashboard->bind_param("siii", $tanggal_hari_ini, $pendapatan_hari_ini, $total_produk_terjual, $total_pembeli);
+    $sql_insert_dashboard->execute();
+    $sql_insert_dashboard->close();
+} else {
+    // Jika sudah ada, update data ringkasan untuk hari ini
+    $sql_update_dashboard = $conn->prepare(
+        "UPDATE dashboard
+         SET total_pendapatan = ?, total_produk_terjual = ?, total_pembeli = ?
+         WHERE tanggal = ?"
+    );
+    $sql_update_dashboard->bind_param("iiis", $pendapatan_hari_ini, $total_produk_terjual, $total_pembeli, $tanggal_hari_ini);
+    $sql_update_dashboard->execute();
+    $sql_update_dashboard->close();
+}
+
+$sql_check_dashboard->close();
+$sql_pendapatan->close();
+$sql_produk_terjual->close();
+$sql_total_pembeli->close();
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -12,128 +84,38 @@ if (!isset($_SESSION['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/cobastyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
     <div class="container">
-        <div class="big-three">
-            <?php include 'sidebar.php'; ?>
-            <div class="search-container">
-                <form method="GET" action="">
-                    <div class="form-grup">
-                        <input type="text" class="form-input" id="search-input" name="search" placeholder="Search Menu" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
-                        <button type="submit">Cari</button>
-                    </div>
-                </form>
+        <?php include 'sidebar.php'; ?>
+
+        <div class="dashboard">
+            <h1>Dashboard</h1>
+
+            <div class="dashboard-section">
+                <h2>Pendapatan Hari Ini</h2>
+                <p>Rp <?= number_format($pendapatan_hari_ini, 0, ',', '.'); ?></p>
             </div>
-            <div class="order-information">
-                <div class="top-info">
-                    <div class="logo-info">
-                        <img src="assets/Rectangle.png" alt="">
-                        <div class="kasir-info">
-                            <p><?php echo $_SESSION['username']; ?></p>
-                            <p>id: <?php echo $_SESSION['id']; ?></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mid-info">
-                    <p>Tanggal : <?php echo date("d-m-Y"); ?></p>
-                    <div class="formulir">
-                        <div class="judul-form">
-                            <h2>Form Input Pelanggan</h2>
-                        </div>
-                        <div class="isi-form">
-                            <form action="inpembeli.php" method="post">
-                                <label for="nama">Nama:</label>
-                                <input type="text" id="nama" name="nama" required><br><br>
 
-                                <!-- Daftar Meja -->
-                                <h2>Daftar Meja</h2>
-                                <?php
-                                include 'konek.php';
-
-                                $sql = "SELECT no_meja, status_meja FROM meja";
-                                $result = $conn->query($sql);
-
-                                if ($result->num_rows > 0) {
-                                    echo '<label for="no_meja">Pilih Meja:</label>';
-                                    echo '<select id="no_meja" name="no_meja" required>';
-                                    while ($row = $result->fetch_assoc()) {
-                                        $status = htmlspecialchars($row['status_meja']);
-                                        $disabled = $status === 'terisi' ? 'disabled' : '';
-                                        echo '<option value="' . $row['no_meja'] . '" ' . $disabled . '>Meja ' . $row['no_meja'] . ' (' . $status . ')</option>';
-                                    }
-                                    echo '</select><br><br>';
-                                } else {
-                                    echo 'Tidak ada meja tersedia.';
-                                }
-
-                                $conn->close();
-                                ?>
-
-                                <br>
-                                <input type="submit" value="Submit">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="buttom-info">
-                    <a href="transaksi.php">Place On Order</a>
-                </div>
+            <div class="dashboard-section">
+                <h2>Total Produk Terjual</h2>
+                <p><?= $total_produk_terjual; ?> Produk</p>
             </div>
-        </div>
-        <div class="menu-juga">
-            <?php
 
-            include 'konek.php';
-            // Tangkap input pencarian
-            $search = isset($_GET['search']) ? $_GET['search'] : '';
+            <div class="dashboard-section">
+                <h2>Total Pembeli</h2>
+                <p><?= $total_pembeli; ?> Orang</p>
+            </div>
 
-            // Query pencarian
-            $query = "SELECT * FROM produk WHERE nama_produk LIKE ?";
-            $stmt_search = $conn->prepare($query);
-            $search_param = "%" . $search . "%";
-            $stmt_search->bind_param("s", $search_param);
-            $stmt_search->execute();
-            $data = $stmt_search->get_result();
-
-            // Tampilkan hasil pencarian
-            if ($data->num_rows > 0) {
-                while ($d = $data->fetch_assoc()) {
-            ?>
-                    <div class="menu-container">
-                        <div class="menu">
-                            <p><?php echo $d['nama_produk']; ?></p>
-                            <div class="menu-item">
-                                <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
-                                <div class="menu-info">
-                                    <p>Rp <?php echo $d['harga_produk']; ?></p>
-                                    <form method="POST" action="">
-                                        <input type="hidden" name="id_produk" value="<?php echo $d['id_produk']; ?>">
-                                        <div class="input-number-container">
-                                            <button type="button" class="minusBtn">-</button>
-                                            <input type="number" class="numberInput" name="quantity" value="0" min="0" max="1000">
-                                            <button type="button" class="plusBtn">+</button>
-                                        </div>
-                                        <button type="submit" name="add_product" class="input">Tambah Produk</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            <?php
-                }
-            } else {
-                echo "<p style='text-align: center; color: gray;'>Hasil tidak ditemukan.</p>";
-            }
-            ?>
+            <footer>
+                <p>&copy; <?= date('Y'); ?> Sistem Manajemen Restoran</p>
+            </footer>
         </div>
     </div>
-
-    <script src="js/script.js"></script>
 </body>
 
 </html>
