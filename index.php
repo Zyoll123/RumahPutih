@@ -95,26 +95,33 @@ $conn->close();
 
         <div class="dashboard">
             <h1>Dashboard</h1>
-
-            <div class="dashboard-section">
-                <h2>Pendapatan Hari Ini</h2>
-                <p>Rp <?= number_format($pendapatan_hari_ini, 0, ',', '.'); ?></p>
+            <div class="kotak">
+                <div class="dashboard-section1">
+                    <h2>Pendapatan Hari Ini</h2>
+                    <div class="pr">
+                    <p>Rp <?= number_format($pendapatan_hari_ini, 0, ',', '.'); ?></p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-section2">
+                    <h2>Total Produk Terjual</h2>
+                    <div class="pr">
+                    <p><?= $total_produk_terjual; ?> Produk</p>
+                    </div>
+                </div>
+            
+                <div class="dashboard-section3">
+                    <h2>Total Pembeli</h2>
+                    <div class="pr">
+                    <p><?= $total_pembeli; ?> Orang</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="dashboard-section">
-                <h2>Total Produk Terjual</h2>
-                <p><?= $total_produk_terjual; ?> Produk</p>
-            </div>
-
-            <div class="dashboard-section">
-                <h2>Total Pembeli</h2>
-                <p><?= $total_pembeli; ?> Orang</p>
-            </div>
-
-            <footer>
-                <p>&copy; <?= date('Y'); ?> Sistem Manajemen Restoran</p>
-            </footer>
+            <div class="rekap">
+            <a href="rekap_harian.php"><button>rekap</button></a>
+                    </div>
         </div>
+    </div>
     </div>
 </body>
 
