@@ -54,3 +54,22 @@ document.querySelectorAll('.input-number-container').forEach(container => {
     // Inisialisasi status tombol saat pertama kali
     toggleButtons(input);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const quantityInputs = document.querySelectorAll(".numberInput");
+    const totalHargaElement = document.getElementById("totalHarga");
+
+    function updateTotalHarga() {
+        let total = 0;
+        quantityInputs.forEach(input => {
+            const quantity = parseInt(input.value) || 0;
+            const harga = parseInt(input.closest(".menu-item").querySelector(".harga-produk").dataset.harga) || 0;
+            total += quantity * harga;
+        });
+        totalHargaElement.textContent = total.toLocaleString("id-ID");
+    }
+
+    quantityInputs.forEach(input => {
+        input.addEventListener("input", updateTotalHarga);
+    });
+});

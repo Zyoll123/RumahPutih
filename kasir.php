@@ -350,7 +350,7 @@ if (!isset($_SESSION['id'])) {
         position: fixed;
         height: 50px;
         width: 100%;
-        
+
         bottom: 0;
     }
 
@@ -360,7 +360,8 @@ if (!isset($_SESSION['id'])) {
         width: 100px;
         height: 40px;
         margin: 10px auto;
-        background-color: #3498db; /* Warna biru cerah */
+        background-color: #3498db;
+        /* Warna biru cerah */
         color: white;
         border: none;
         border-radius: 8px;
@@ -372,9 +373,10 @@ if (!isset($_SESSION['id'])) {
     }
 
     .submit-button input:hover {
-    background-color: #2980b9; /* Warna biru lebih gelap saat hover */
-    transform: scale(1.05);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        background-color: #2980b9;
+        /* Warna biru lebih gelap saat hover */
+        transform: scale(1.05);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
 </style>
 
@@ -454,6 +456,10 @@ if (!isset($_SESSION['id'])) {
                                 <?php
                                 }
                                 ?>
+                            </div>
+
+                            <div class="total-harga">
+                                <h3>Total Harga: Rp <span id="totalHarga">0</span></h3>
                             </div>
 
                             <div class="submit-button">
