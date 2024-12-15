@@ -88,6 +88,177 @@ $conn->close();
     <link rel="stylesheet" href="css/cobastyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+<style>
+    /* Reset Margin dan Padding */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Warna latar belakang utama */
+    body {
+        background-color: #dde9dd;
+    }
+
+    /* Struktur Dashboard */
+    .big-three {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    /* Sidebar */
+    .side-bar {
+        position: fixed;
+        height: 100%;
+        width: 200px;
+        background-color: #ffff;
+        border-right: 1px solid #979494;
+    }
+
+    .side-bar img {
+        width: 150px;
+        margin: 20px auto;
+        display: block;
+    }
+
+    .side-bar-item {
+        margin: 20px;
+    }
+
+    .side-bar-item:hover a,
+    .log-out:hover a {
+        color: #9cc1e5;
+        transition: color 0.3s;
+    }
+
+    .side-bar-item a,
+    .log-out a {
+        text-decoration: none;
+        color: black;
+        display: flex;
+        align-items: center;
+    }
+
+    .side-bar-item a i,
+    .log-out a i {
+        margin-right: 10px;
+    }
+
+    .log-out {
+        margin-top: auto;
+        margin-left: 20px;
+    }
+
+    /* Area Dashboard */
+    .dashboard {
+        margin-left: 200px;
+        padding: 30px;
+        width: calc(100% - 200px);
+        background-color: #eaf5e6;
+        min-height: 100vh;
+    }
+
+    .dashboard h1 {
+        font-size: 32px;
+        color: #2d3e50;
+        margin-bottom: 30px;
+    }
+
+    /* Kotak Statistik */
+    .kotak {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .dashboard-section1,
+    .dashboard-section2,
+    .dashboard-section3 {
+        background-color: #DDE3E9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .dashboard-section1:hover,
+    .dashboard-section2:hover,
+    .dashboard-section3:hover {
+        background-color: #cdd7e1;
+        transform: scale(1.05);
+    }
+
+    .dashboard-section h2 {
+        font-size: 30px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .pr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+        color: #769dc6;
+        font-weight: bold;
+    }
+
+    /* Tombol Rekap */
+    .rekap {
+        text-align: center;
+        margin-top: 50px;
+        
+    }
+
+    .rekap-button {
+        width: 150px;
+        height: 40px;
+        margin-top: 300px;
+        margin-left: 85%;
+        background-color: #769dc6;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .rekap-button:hover {
+        background-color: #5b83a8;
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 768px) {
+        .side-bar {
+            width: 100px;
+        }
+
+        .side-bar img {
+            width: 80px;
+        }
+
+        .side-bar-item a {
+            font-size: 12px;
+        }
+
+        .dashboard {
+            margin-left: 100px;
+            padding: 20px;
+        }
+
+        .kotak {
+            grid-template-columns: 1fr;
+        }
+
+        .rekap {
+            margin-top: 20px;
+        }
+    }
+</style>
 
 <body>
     <div class="container">
@@ -99,27 +270,28 @@ $conn->close();
                 <div class="dashboard-section1">
                     <h2>Pendapatan Hari Ini</h2>
                     <div class="pr">
-                    <p>Rp <?= number_format($pendapatan_hari_ini, 0, ',', '.'); ?></p>
+                        <p>Rp <?= number_format($pendapatan_hari_ini, 0, ',', '.'); ?></p>
                     </div>
                 </div>
-                
+
                 <div class="dashboard-section2">
                     <h2>Total Produk Terjual</h2>
                     <div class="pr">
-                    <p><?= $total_produk_terjual; ?> Produk</p>
+                        <p><?= $total_produk_terjual; ?> Produk</p>
                     </div>
                 </div>
-            
+
                 <div class="dashboard-section3">
                     <h2>Total Pembeli</h2>
                     <div class="pr">
-                    <p><?= $total_pembeli; ?> Orang</p>
+                        <p><?= $total_pembeli; ?> Orang</p>
                     </div>
                 </div>
             </div>
             <div class="rekap">
-            <a href="rekap_harian.php"><button>rekap</button></a>
-                    </div>
+                <a href="rekap_harian.php"><button class="rekap-button">Rekap</button></a>
+            </div>
+
         </div>
     </div>
     </div>

@@ -47,6 +47,69 @@ $conn->close();
     <title>Bill Transaksi</title>
     <link rel="stylesheet" href="css/bill.css">
 </head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4faff; /* Latar belakang biru muda pucat */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    }
+
+    h2 {
+    text-align: center;
+    color: #2c7abf; /* Warna biru cerah */
+    margin-bottom: 10px;
+    }
+
+    p {
+    margin: 5px 0;
+    font-size: 14px;
+    }
+
+    table {
+        width: 100%;
+        margin: 10px 0;
+        border-collapse: collapse;
+    }
+
+    table th, table td {
+        border: 1px solid #aad8f2; /* Garis biru muda */
+        padding: 8px;
+        text-align: center;
+    }
+
+    table th {
+    background-color: #2c7abf; /* Warna biru cerah */
+    color: white;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #e6f4fc; /* Warna biru muda */
+    }
+
+    strong {
+        color: #2c7abf;
+        font-size: 16px;
+    }
+
+    .kembali {
+    text-align: center;
+    margin-top: 20px;
+    }
+
+    .kembali a {
+        display: inline-block;
+        text-decoration: none;
+        background-color: #2c7abf;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+</style>
 <body>
     <h2>Bill Transaksi</h2>
     <p>Nama: <?php echo htmlspecialchars($nama_pembeli); ?></p>

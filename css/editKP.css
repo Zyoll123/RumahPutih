@@ -93,5 +93,6 @@ body {
   color: black;
 }
 .tabel{
- right:250px;
+  width: 100px;
+  height: 70px;
 }

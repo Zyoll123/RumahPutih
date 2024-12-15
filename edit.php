@@ -10,12 +10,13 @@
 </head>
 <style>
     .menu-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 30px;
-    margin-left: 200px;  /* Memberikan jarak ke kiri */
-    margin-top: 200px;   /* Memberikan jarak ke atas */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+        margin-left: 200px;
+        margin-top: 20px;
+        /* Memberikan jarak ke kiri */
     }
 
     .menu {
@@ -33,57 +34,123 @@
         max-height: 50%;
         object-fit: cover;
     }
+
+    .search-bar {
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .search-bar form {
+        display: flex;
+        margin-left: 230px;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .search-bar input[type="text"] {
+        width: 300px;
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .search-bar input[type="text"]:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    }
+
+    .search-bar button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .search-bar button:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+    .search-bar button i {
+        margin-right: 5px;
+        vertical-align: middle;
+    }
 </style>
 
 <body>
-    <div class="container">
-        <div class="big-three">
-            <?php include 'sidebar.php'; ?>
-            <div class="tambah-menu">
-                <button><a href="tambahmenu.php"><i class="fa-solid fa-plus"></i>Tambah Menu</a></button>
+
+    <body>
+        <div class="container">
+            <!-- Sidebar -->
+            <div class="big-three">
+                <?php include 'sidebar.php'; ?>
+                <div class="tambah-menu">
+                    <button><a href="tambahmenu.php"><i class="fa-solid fa-plus"></i> Tambah Menu</a></button>
+                </div>
             </div>
-        </div>
 
-        <div class="menu-container">
-            <?php
-            include 'konek.php';
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <form method="GET" action="">
+                    <input type="text" name="search" placeholder="Cari menu..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                    <button type="submit"><i class="fa fa-search"></i> Cari</button>
+                </form>
+            </div>
 
-            // Periksa koneksi ke database
-            if (!$conn) {
-                die("Koneksi gagal: " . mysqli_connect_error());
-            }
+            <!-- Menu Container -->
+            <div class="menu-container">
+                <?php
+                include 'konek.php';
 
-            $data = mysqli_query($conn, "SELECT * FROM produk");
+                // Periksa koneksi ke database
+                if (!$conn) {
+                    die("Koneksi gagal: " . mysqli_connect_error());
+                }
 
-            // Periksa apakah ada data
-            if (mysqli_num_rows($data) > 0) {
-                while ($d = mysqli_fetch_array($data)) {
-            ?>
-                    <div class="menu">
-                        <div class="nama-menu">
-                            <p><?php echo htmlspecialchars($d['nama_produk']); ?></p>
-                            <div class="icon-edit">
-                                <a href="editmenu.php?id_produk=<?php echo $d['id_produk']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a href="hapus.php?id=<?php echo $d['id_produk']; ?>"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </a>
+                // Ambil kata kunci pencarian
+                $search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
+
+                // Query produk berdasarkan pencarian
+                $query = !empty($search) ? "SELECT * FROM produk WHERE nama_produk LIKE '%$search%'" : "SELECT * FROM produk";
+                $data = mysqli_query($conn, $query);
+
+                // Tampilkan data produk
+                if (mysqli_num_rows($data) > 0) {
+                    while ($d = mysqli_fetch_array($data)) {
+                ?>
+                        <div class="menu">
+                            <div class="nama-menu">
+                                <p><?php echo htmlspecialchars($d['nama_produk']); ?></p>
+                                <div class="icon-edit">
+                                    <a href="editmenu.php?id_produk=<?php echo $d['id_produk']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <a href="hapus.php?id=<?php echo $d['id_produk']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="gambar-menu">
+                            <div class="menu-item">
                                 <img src="data:image/jpg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="<?php echo htmlspecialchars($d['nama_produk']); ?>">
                             </div>
                         </div>
-                    </div>
-            <?php
+                <?php
+                    }
+                } else {
+                    echo "<p class='no-data'>Tidak ada menu yang sesuai dengan pencarian Anda.</p>";
                 }
-            } else {
-                echo "<p>Tidak ada produk yang tersedia.</p>";
-            }
-            ?>
+                ?>
+            </div>
         </div>
-    </div>
+    </body>
 </body>
 
 </html>

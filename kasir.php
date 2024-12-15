@@ -132,28 +132,50 @@ if (!isset($_SESSION['id'])) {
     }
 
     .isi-form {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px; /* Kurangi jarak antar elemen */
-    margin-top: 5px; /* Kurangi margin atas */
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+        /* Kurangi jarak antar elemen */
+        margin-top: 5px;
+        /* Kurangi margin atas */
     }
 
-    .form-nama, .form-meja {
-        width: 48%; /* Sesuaikan lebar agar lebih seimbang */
+    .form-nama {
+        width: 48%;
+        margin-top: 10px;
     }
 
-    form label,form input,form select,form h2 {
+    .form-dibayar {
+        width: 48%;
+        margin-left: 550px;
+        margin-top: -90px;
+    }
+
+    .form-meja {
+        width: 48%;
+    }
+
+    form label,
+    form input,
+    form select,
+    form h2 {
         display: block;
-        margin-bottom: 3px; /* Kurangi margin bawah */
+        margin-bottom: 3px;
+        /* Kurangi margin bawah */
     }
 
-    form input,form select {
+    form input,
+    form select {
         width: 100%;
-        padding: 6px; /* Kurangi padding */
-        border: 1px solid #ccc; /* Gunakan warna border lebih lembut */
-        border-radius: 3px; /* Kurangi radius border */
+        padding: 6px;
+        /* Kurangi padding */
+        border: 1px solid #ccc;
+        /* Gunakan warna border lebih lembut */
+        border-radius: 3px;
+        /* Kurangi radius border */
     }
+
     .logo-info {
         display: flex;
         justify-content: flex-start;
@@ -265,7 +287,7 @@ if (!isset($_SESSION['id'])) {
         display: flex;
         justify-content: space-evenly;
         margin-top: 10px;
-        
+
     }
 
     .menu-item p {
@@ -282,17 +304,33 @@ if (!isset($_SESSION['id'])) {
         margin-bottom: 20px;
     }
 
-    .input-number-container input {
-        height: 17px;
-        border-radius: 5px;
+    .input-number-container {
+        display: flex;
+        align-items: center;
+        /* Tengahkan vertikal */
+        justify-content: center;
+        /* Tengahkan horizontal */
+        gap: 5px;
+        /* Beri jarak antar elemen */
     }
 
     .input-number-container button {
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
         border-radius: 5px;
+        text-align: center;
         cursor: pointer;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
     }
+
+    .input-number-container .numberInput {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
 
     /* Untuk browser WebKit (Chrome, Safari, Opera) */
     input[type="number"]::-webkit-outer-spin-button,
@@ -301,11 +339,43 @@ if (!isset($_SESSION['id'])) {
         margin: 0;
     }
 
-    .button input {
+    /* .button input {
         margin-bottom: 20px;
         justify-content: center;
+    } */
+
+    .submit-button {
+        display: flex;
+        justify-content: space-around;
+        position: fixed;
+        height: 50px;
+        width: 100%;
+        
+        bottom: 0;
     }
 
+    .submit-button input {
+        display: flex;
+        justify-content: flex-end;
+        width: 100px;
+        height: 40px;
+        margin: 10px auto;
+        background-color: #3498db; /* Warna biru cerah */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-left: 1030px;
+    }
+
+    .submit-button input:hover {
+    background-color: #2980b9; /* Warna biru lebih gelap saat hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
 </style>
 
 <body>
@@ -319,7 +389,9 @@ if (!isset($_SESSION['id'])) {
                             <div class="form-nama">
                                 <label for="nama">Nama:</label>
                                 <input type="text" id="nama" name="nama" required><br><br>
+                            </div>
 
+                            <div class="form-dibayar">
                                 <!-- Input uang yang dibayar -->
                                 <label for="uang_dibayar">Uang Dibayar:</label>
                                 <input type="number" id="uang_dibayar" name="uang_dibayar" required><br><br>
@@ -371,8 +443,8 @@ if (!isset($_SESSION['id'])) {
                                                 <p>Rp <?php echo $row['harga_produk']; ?></p>
                                                 <input type="hidden" name="produk[<?php echo $row['id_produk']; ?>]" value="<?php echo $row['id_produk']; ?>">
                                                 <div class="input-number-container">
-                                                    <input type="number" class="numberInput" name="quantity[<?php echo $row['id_produk']; ?>]" value="0" min="0" max="1000" required>
                                                     <button type="button" class="minusBtn">-</button>
+                                                    <input type="number" class="numberInput" name="quantity[<?php echo $row['id_produk']; ?>]" value="0" min="0" max="1000" required>
                                                     <button type="button" class="plusBtn">+</button>
                                                 </div>
                                             </div>
@@ -384,7 +456,9 @@ if (!isset($_SESSION['id'])) {
                                 ?>
                             </div>
 
-                            <input type="submit" value="Submit">
+                            <div class="submit-button">
+                                <input type="submit" value="Submit">
+                            </div>
                         </form>
 
                     </div>
