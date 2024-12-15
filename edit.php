@@ -63,7 +63,7 @@
     }
 
     .search-bar button {
-        background-color: #4CAF50;
+        background-color: #4a97e4;
         color: white;
         border: none;
         padding: 12px 20px;
@@ -77,7 +77,7 @@
     }
 
     .search-bar button:hover {
-        background-color: #45a049;
+        background-color: #9cc1e5;
         transform: scale(1.05);
     }
 

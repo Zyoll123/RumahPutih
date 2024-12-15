@@ -60,7 +60,7 @@
                     <input type="text" class="form-input" id="harga" name="harga_produk" value="<?php echo htmlspecialchars($d['harga_produk']); ?>" oninput="toggleLabel(this)">
                 </div>
 
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="Gambar Produk Lama">
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($d['gambar_produk']); ?>" alt="Gambar Produk Lama" style="width:200px;height:150px;padding:10px;">
                 <label class="custom-file-upload">
                     Ganti Gambar Produk
                     <input type="file" class="file-input" id="fileUpload" name="gambar_produk_baru">

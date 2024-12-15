@@ -24,6 +24,69 @@ $result_rekap = $conn->query($sql_rekap);
     <link rel="stylesheet" href="css/cobastyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+<style>
+    .dashboard {
+        padding: 20px;
+    }
+
+    .dashboard h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    table th,
+    table td {
+        border: 1px solid #ddd;
+        text-align: center;
+        padding: 10px;
+    }
+
+    table th {
+        background-color: #41729F;
+        color: white;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        text-decoration: none;
+        background-color: #41729F;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #9cc1e5;
+    }
+
+    @media screen and (max-width: 768px) {
+        table {
+            display: block;
+            overflow-x: auto;
+        }
+
+        .dashboard {
+            padding: 10px;
+        }
+    }
+</style>
 
 <body>
     <div class="container">
