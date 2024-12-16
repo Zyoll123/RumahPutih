@@ -188,7 +188,7 @@
               <td><?php echo htmlspecialchars($d['no_telp']); ?></td>
               <td>
                 <a href="editkasir.php?id_kasir=<?php echo $d['id_kasir']; ?>">EDIT</a>
-                <a href="hapuskasir.php?id=<?php echo $d['id_kasir']; ?>"
+                <a href="hapuskasir.php?id_kasir=<?php echo $d['id_kasir']; ?>"
                   onclick="return confirm('Apakah Anda yakin ingin menghapus kasir ini?')">
                   HAPUS
                 </a>

@@ -47,12 +47,111 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
+<style>
+    .container {
+    position: relative; 
+    flex: 1;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background-color: #eef5f0;
+}
+
+.profile-header {
+    position: absolute;
+    top: 20px; /* Letak di kiri atas */
+    left: 20px;
+    text-align: left;
+}
+
+.profile-header img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007acc;
+}
+.profile-header h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.profile-header h1 {
+    font-size: 36px;
+    color: #007acc;
+    margin-bottom: 30px;
+}
+
+.profile-header p {
+    margin-left: -110px;
+    font-size: 20px;
+    color: #005b99;
+    margin-top: 20px;
+}
+
+.profile-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 50%;
+    max-width: 600px;
+    margin-top: 200px;
+}
+
+.profile-card h2 {
+    font-size: 24px;
+    color: #005b99;
+    margin-bottom: 15px;
+}
+
+.profile-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e6f7ff;
+}
+
+.profile-item span:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-item span:last-child {
+    color: #555;
+}
+
+.edit-profil {
+    position: absolute;
+    bottom: -50px; /* Posisi kiri bawah */
+    left: 20px;
+}
+
+.edit-profil a {
+    text-decoration: none;
+    background-color: #007acc;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.edit-profil a:hover {
+    background-color: #005b99;
+}
+
+</style>
+
 <body>
     <div class="big-three">
         <?php include 'ksidebar.php'; ?>
 
         <div class="container">
             <div class="profile-header">
+                <img src="assets/Rectangle.png" alt="">
                 <h1>Profil</h1><br>
                 <p><?php echo $user['username']; ?></p> <!-- Menampilkan username -->
             </div>

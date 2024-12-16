@@ -142,31 +142,29 @@ if (!isset($_SESSION['id'])) {
     }
 
     .form-nama {
-        width: 48%;
+        width: 30%;
         margin-top: 10px;
     }
 
     .form-dibayar {
-        width: 48%;
+        width: 30%;
         margin-left: 550px;
         margin-top: -90px;
     }
 
     .form-meja {
-        width: 48%;
+        width: 30%;
+        margin-left: 550px;
+        margin-top: 10px;
     }
 
-    form label,
-    form input,
-    form select,
-    form h2 {
+    form label,form input,form select,form h2 {
         display: block;
         margin-bottom: 3px;
         /* Kurangi margin bawah */
     }
 
-    form input,
-    form select {
+    form input,form select {
         width: 100%;
         padding: 6px;
         /* Kurangi padding */
@@ -378,6 +376,11 @@ if (!isset($_SESSION['id'])) {
         transform: scale(1.05);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
+
+    .total-harga {
+        margin-left: 550px;
+        margin-top: -30px;
+    }
 </style>
 
 <body>
@@ -397,11 +400,14 @@ if (!isset($_SESSION['id'])) {
                                 <!-- Input uang yang dibayar -->
                                 <label for="uang_dibayar">Uang Dibayar:</label>
                                 <input type="number" id="uang_dibayar" name="uang_dibayar" required><br><br>
+                            </div>                            
+
+                            <div class="total-harga">
+                                <h3>Total Harga: Rp <span id="totalHarga">0</span></h3>
                             </div>
 
                             <div class="form-meja">
-                                <!-- Daftar Meja -->
-                                <h2>Daftar Meja</h2>
+                                <!-- Daftar Meja -->                                
                                 <?php
                                 include 'konek.php';
 
@@ -426,40 +432,29 @@ if (!isset($_SESSION['id'])) {
                             <h3>Pilih Produk</h3>
                             <div class="menu-container">
                                 <?php
-                                // Ambil daftar produk
                                 $sql_produk = "SELECT * FROM produk";
                                 $result_produk = $conn->query($sql_produk);
                                 while ($row = $result_produk->fetch_assoc()) {
+                                    $harga_format = number_format($row['harga_produk'], 0, ',', '.');
                                 ?>
-                                    <!-- echo "<div class='menu-item'>";
-                                    echo "<p>{$row['nama_produk']} - Rp {$row['harga_produk']}</p>";
-                                    echo "<input type='hidden' name='produk[{$row['id_produk']}]' value='{$row['id_produk']}'>";
-                                    echo "<input type='number' name='quantity[{$row['id_produk']}]' value='0' min='0' max='100' placeholder='Jumlah' required><br>";
-                                    echo "</div><br>"; -->
-
                                     <div class="menu">
                                         <p><?php echo $row['nama_produk']; ?></p>
                                         <div class="menu-item">
-                                            <img src="data:image/jpg;base64,<?php echo base64_encode($row['gambar_produk']); ?>" alt="<?php echo $d['nama_produk']; ?>">
+                                            <img src="data:image/jpg;base64,<?php echo base64_encode($row['gambar_produk']); ?>" alt="<?php echo $row['nama_produk']; ?>">
                                             <div class="menu-info">
-                                                <p>Rp <?php echo $row['harga_produk']; ?></p>
+                                                <p>Rp <?php echo $harga_format; ?></p>
                                                 <input type="hidden" name="produk[<?php echo $row['id_produk']; ?>]" value="<?php echo $row['id_produk']; ?>">
                                                 <div class="input-number-container">
                                                     <button type="button" class="minusBtn">-</button>
-                                                    <input type="number" class="numberInput" name="quantity[<?php echo $row['id_produk']; ?>]" value="0" min="0" max="1000" required>
+                                                    <input type="number" class="numberInput" name="quantity[<?php echo $row['id_produk']; ?>]" value="0" min="0" max="1000" data-harga="<?php echo $row['harga_produk']; ?>" required>
                                                     <button type="button" class="plusBtn">+</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 <?php
                                 }
                                 ?>
-                            </div>
-
-                            <div class="total-harga">
-                                <h3>Total Harga: Rp <span id="totalHarga">0</span></h3>
                             </div>
 
                             <div class="submit-button">

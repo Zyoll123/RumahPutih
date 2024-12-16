@@ -12,38 +12,38 @@
 <body>
     <div class="container">
         <div class="big-three">
-            <?php include 'sidebar.php'; ?>
+            <?php include 'ksidebar.php'; ?>
             <div class="table-container">
                 <h1>History</h1>
 
                 <form method="GET" action="">
-    <label for="tanggal">Pilih Tanggal:</label>
-    <select id="tanggal" name="tanggal">
-        <option value="">Semua Tanggal</option>
-        <?php
-        // Koneksi database
-        $koneksi = mysqli_connect("localhost", "root", "", "rumahputih");
+                    <label for="tanggal">Pilih Tanggal:</label>
+                    <select id="tanggal" name="tanggal">
+                        <option value="">Semua Tanggal</option>
+                        <?php
+                        // Koneksi database
+                        $koneksi = mysqli_connect("localhost", "root", "", "rumahputih");
 
-        // Check connection
-        if (mysqli_connect_errno()) {
-            echo "Koneksi database gagal : " . mysqli_connect_error();
-        }
+                        // Check connection
+                        if (mysqli_connect_errno()) {
+                            echo "Koneksi database gagal : " . mysqli_connect_error();
+                        }
 
-        // Query untuk mendapatkan tanggal unik dari tabel transaksi
-        $tanggalQuery = "SELECT DISTINCT tgl_transaksi FROM transaksi ORDER BY tgl_transaksi ASC";
-        $tanggalResult = $koneksi->query($tanggalQuery);
+                        // Query untuk mendapatkan tanggal unik dari tabel transaksi
+                        $tanggalQuery = "SELECT DISTINCT tgl_transaksi FROM transaksi ORDER BY tgl_transaksi ASC";
+                        $tanggalResult = $koneksi->query($tanggalQuery);
 
-        // Loop untuk mengisi opsi select
-        if ($tanggalResult && $tanggalResult->num_rows > 0) {
-            while ($row = $tanggalResult->fetch_assoc()) {
-                $selected = isset($_GET['tanggal']) && $_GET['tanggal'] == $row['tgl_transaksi'] ? 'selected' : '';
-                echo "<option value='" . $row['tgl_transaksi'] . "' $selected>" . $row['tgl_transaksi'] . "</option>";
-            }
-        }
-        ?>
-    </select>
-    <button type="submit">Filter</button>
-</form>
+                        // Loop untuk mengisi opsi select
+                        if ($tanggalResult && $tanggalResult->num_rows > 0) {
+                            while ($row = $tanggalResult->fetch_assoc()) {
+                                $selected = isset($_GET['tanggal']) && $_GET['tanggal'] == $row['tgl_transaksi'] ? 'selected' : '';
+                                echo "<option value='" . $row['tgl_transaksi'] . "' $selected>" . $row['tgl_transaksi'] . "</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                    <button type="submit">Filter</button>
+                </form>
 
                 <table>
                     <thead>
