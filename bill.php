@@ -48,67 +48,100 @@ $conn->close();
     <link rel="stylesheet" href="css/bill.css">
 </head>
 <style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f4faff; /* Latar belakang biru muda pucat */
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    }
+      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+         }
 
-    h2 {
-    text-align: center;
-    color: #2c7abf; /* Warna biru cerah */
-    margin-bottom: 10px;
-    }
+        body {
+            background-color: #F5F5F5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
 
-    p {
-    margin: 5px 0;
-    font-size: 14px;
-    }
+        .bill-container {
+            width: 350px;
+            background-color: #fff;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
 
-    table {
-        width: 100%;
-        margin: 10px 0;
-        border-collapse: collapse;
-    }
+        .bill-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
 
-    table th, table td {
-        border: 1px solid #aad8f2; /* Garis biru muda */
-        padding: 8px;
-        text-align: center;
-    }
+        .bill-header h2 {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-    table th {
-    background-color: #2c7abf; /* Warna biru cerah */
-    color: white;
-    }
+        .bill-header p {
+            font-size: 12px;
+            color: #333;
+        }
 
-    table tr:nth-child(even) {
-        background-color: #e6f4fc; /* Warna biru muda */
-    }
+        .bill-content {
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
 
-    strong {
-        color: #2c7abf;
-        font-size: 16px;
-    }
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
 
-    .kembali {
-    text-align: center;
-    margin-top: 20px;
-    }
+        .bill-table th, .bill-table td {
+            font-size: 13px;
+            border: none;
+            padding: 5px 0;
+            text-align: left;
+        }
 
-    .kembali a {
-        display: inline-block;
-        text-decoration: none;
-        background-color: #2c7abf;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
+        .bill-table th {
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .total-container {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .total-container p {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kembali {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .kembali a {
+            display: inline-block;
+            background-color: #0078FF;
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .kembali a:hover {
+            background-color: #005fcc;
+        }
 </style>
 <body>
     <h2>Bill Transaksi</h2>
