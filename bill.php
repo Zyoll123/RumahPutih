@@ -165,7 +165,7 @@ $conn->close();
     <div class="bill-container">
         <div class="bill-header">
             <!-- Gambar Logo -->
-            <img src="Logo Rumah Putih.png" alt="Logo Omah Putih">
+            <img src="assets/l1.png" alt="Logo Omah Putih">
             <h2>Bill Transaksi</h2>
         </div>
         <div class="customer-info">
