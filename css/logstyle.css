@@ -10,16 +10,16 @@ body {
 
 .container {
     display: flex;
-    background-color: #f0f4f8; /* Sesuaikan warna background container */
-    width: 100%; /* Buat lebar penuh */
+    background-color: #f0f4f8; 
+    width: 100%; 
     height: 100%;
-    box-shadow: none; /* Hapus bayangan */
-    border-radius: 0; /* Hapus sudut melengkung */
-    overflow: visible; /* Hapus pengaturan overflow */
+    box-shadow: none; 
+    border-radius: 0; 
+    overflow: visible; 
 }
 
 .left {
-    background-color: #ffff; /* Hapus warna background pada bagian kiri */
+    background-color: #ffff; 
     padding: 40px;
     display: flex;
     width: 500px;
@@ -47,9 +47,9 @@ body {
 }
 
 .right {
-    background-color: transparent; /* Hapus warna background pada bagian kanan */
+    background-color: transparent; 
     padding: 50px;
-    width: 50%; /* Sesuaikan lebar */
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -84,4 +84,19 @@ body {
 
 form p {
     text-align: center;
+}
+
+form select {
+    font-size: 14px; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(110% - 40px);
+    margin-left: 11px; 
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    margin-top: 10px;
 }
