@@ -8,10 +8,16 @@ if (!isset($_SESSION['id'])) {
     exit;
 }
 
-// Ambil semua data dari tabel dashboard
-$sql_rekap = "SELECT * FROM dashboard ORDER BY tanggal DESC";
-$result_rekap = $conn->query($sql_rekap);
-
+// Ambil semua data dari tabel dashboard berdasarkan bulan
+$sql_rekap_bulanan = "
+    SELECT DATE_FORMAT(tanggal, '%Y-%m') AS bulan, 
+           SUM(total_pendapatan) AS total_pendapatan, 
+           SUM(total_produk_terjual) AS total_produk_terjual, 
+           SUM(total_pembeli) AS total_pembeli
+    FROM dashboard
+    GROUP BY bulan
+    ORDER BY bulan DESC";
+$result_rekap_bulanan = $conn->query($sql_rekap_bulanan);
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +26,7 @@ $result_rekap = $conn->query($sql_rekap);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekap Harian</title>
+    <title>Rekap Bulanan</title>
     <link rel="stylesheet" href="css/cobastyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
@@ -159,21 +165,21 @@ $result_rekap = $conn->query($sql_rekap);
         <?php include 'sidebar.php'; ?>
 
         <div class="dashboard">
-            <h1>Rekap Harian</h1>
+            <h1>Rekap Bulanan</h1>
 
             <table border="1" cellpadding="10" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Tanggal</th>
+                        <th>Bulan</th>
                         <th>Total Pendapatan</th>
                         <th>Total Produk Terjual</th>
                         <th>Total Pembeli</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $result_rekap->fetch_assoc()) : ?>
+                    <?php while ($row = $result_rekap_bulanan->fetch_assoc()) : ?>
                         <tr>
-                            <td><?= $row['tanggal']; ?></td>
+                            <td><?= $row['bulan']; ?></td>
                             <td>Rp <?= number_format($row['total_pendapatan'], 0, ',', '.'); ?></td>
                             <td><?= $row['total_produk_terjual']; ?> Produk</td>
                             <td><?= $row['total_pembeli']; ?> Orang</td>

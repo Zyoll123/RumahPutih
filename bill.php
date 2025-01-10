@@ -41,6 +41,7 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,7 +110,12 @@ $conn->close();
         margin-bottom: 10px;
     }
 
+<<<<<<< HEAD
+    table th,
+    table td {
+=======
     table th, table td {
+>>>>>>> 454617246e221e4bc696041de8acaa33bbda1d1e
         text-align: left;
         padding: 5px;
         border-bottom: 1px solid #ddd;
@@ -137,6 +143,29 @@ $conn->close();
         font-size: 14px;
         color: #777;
     }
+<<<<<<< HEAD
+
+    /* Button - Separate Container */
+    .kembali-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .kembali-container a {
+        text-decoration: none;
+        background-color: #1e88e5;
+        color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: inline-block;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .kembali-container a:hover {
+        background-color: #1565c0;
+    }
+=======
 
     /* Button - Separate Container */
     .kembali-container {
@@ -159,7 +188,9 @@ $conn->close();
         background-color: #1565c0;
     }
 
+>>>>>>> 454617246e221e4bc696041de8acaa33bbda1d1e
 </style>
+
 <body>
     <!-- Bill Container -->
     <div class="bill-container">
@@ -191,7 +222,11 @@ $conn->close();
                         <tr>
                             <td><?php echo htmlspecialchars($detail['nama_produk']); ?></td>
                             <td><?php echo htmlspecialchars($detail['quantity']); ?></td>
+<<<<<<< HEAD
+                            <td><?php echo 'Rp ' . number_format($detail['subtotal'], 0, ',', '.'); ?></td>
+=======
                             <td><?php echo htmlspecialchars($detail['subtotal']); ?></td>
+>>>>>>> 454617246e221e4bc696041de8acaa33bbda1d1e
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -202,6 +237,18 @@ $conn->close();
             </tbody>
         </table>
 
+<<<<<<< HEAD
+        <div class="total">
+            Total Pembelian: Rp <?php echo number_format($total, 0, ',', '.'); ?>
+        </div>
+
+        <div class="kembalian">
+            Kembalian: Rp <?php echo number_format($kembalian, 0, ',', '.'); ?>
+        </div>
+
+    </div>
+
+=======
         <!-- Total dan Kembalian -->
         <div class="total">
             Total Pembelian: Rp <?php echo htmlspecialchars($total); ?>
@@ -211,9 +258,11 @@ $conn->close();
         </div>
     </div>
 
+>>>>>>> 454617246e221e4bc696041de8acaa33bbda1d1e
     <!-- Tombol Kembali -->
     <div class="kembali-container">
         <a href="kasir.php">Kembali ke Pemesanan</a>
     </div>
 </body>
+
 </html>

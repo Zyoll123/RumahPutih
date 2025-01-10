@@ -33,7 +33,7 @@ if ($stmt = $conn->prepare($query)) {
 
     if ($stmt->affected_rows > 0) {
         echo "Data berhasil diperbarui.";
-        header("location: profil.php");
+        header("location: kprofil.php");
     } else {
         echo "Tidak ada data yang diubah.";
     }

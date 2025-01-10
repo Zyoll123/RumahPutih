@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Eksekusi statement dan cek hasilnya
     if ($stmt->execute()) {
         echo "Registrasi berhasil!";
-        header("location:index.php");
+        header("location:setting.php");
     } else {
         echo "Error: " . $stmt->error;
     }

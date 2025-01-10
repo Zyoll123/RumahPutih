@@ -127,10 +127,12 @@
                 // Tampilkan data produk
                 if (mysqli_num_rows($data) > 0) {
                     while ($d = mysqli_fetch_array($data)) {
+                        $harga_format = number_format($d['harga_produk'], 0, ',', '.');
                 ?>
                         <div class="menu">
                             <div class="nama-menu">
                                 <p><?php echo htmlspecialchars($d['nama_produk']); ?></p>
+                                <p>Rp <?php echo $harga_format;?></p>
                                 <div class="icon-edit">
                                     <a href="editmenu.php?id_produk=<?php echo $d['id_produk']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
                                     <a href="hapus.php?id=<?php echo $d['id_produk']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">

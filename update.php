@@ -36,5 +36,5 @@ if (!empty($_FILES['gambar_produk_baru']['tmp_name'])) {
 
 // Jalankan query
 mysqli_query($conn, $query);
-header("Location: index.php");
+header("Location: edit.php");
 ?>

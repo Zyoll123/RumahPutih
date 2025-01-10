@@ -23,7 +23,7 @@ $query = "INSERT INTO produk (nama_produk, harga_produk, gambar_produk, id_kateg
 // Eksekusi query
 if (mysqli_query($conn, $query)) {
     echo "Produk berhasil ditambahkan!";
-    header("Location: index.php");
+    header("Location: edit.php");
 } else {
     echo "Error: " . mysqli_error($conn);
 }

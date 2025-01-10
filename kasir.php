@@ -4,6 +4,11 @@ if (!isset($_SESSION['id'])) {
     header("Location: login.html");
     exit;
 }
+
+include 'konek.php';
+
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
 ?>
 
 <!DOCTYPE html>
@@ -82,16 +87,6 @@ if (!isset($_SESSION['id'])) {
         margin-right: 10px;
     }
 
-    .search-container {
-        display: flex;
-        justify-content: center;
-        position: fixed;
-        padding-top: 20px;
-        width: 800px;
-        height: 55px;
-        background-color: #ffff;
-        margin-left: 202px;
-    }
 
     .form-grup {
         position: relative;
@@ -131,40 +126,101 @@ if (!isset($_SESSION['id'])) {
         left: 230px;
     }
 
-    .isi-form {
+    .search-container {
+        position: fixed;
+        /* Tetap menggunakan fixed */
+        top: 10px;
+        /* Posisi dari atas halaman */
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 10;
+        /* Agar tetap berada di atas elemen lain */
+        /* Agar pencarian tetap terlihat jelas di atas konten lainnya */
+        padding: 10px 0;
+        /* Tambahkan padding agar tidak terlalu mepet */
+    }
+
+    .search-container form {
         display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
+        justify-content: center;
+        align-items: center;
         gap: 10px;
-        /* Kurangi jarak antar elemen */
-        margin-top: 5px;
-        /* Kurangi margin atas */
     }
 
-    .form-nama {
-        width: 30%;
-        margin-top: 10px;
+    .search-container input[type="text"] {
+        width: 300px;
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
+    .search-container button {
+        background-color: #4a97e4;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .search-container button:hover {
+        background-color: #9cc1e5;
+        transform: scale(1.05);
+    }
+
+    /* Tambahkan margin pada elemen di bawah search-container agar tidak tertutup */
+    .isi-form {
+        margin-top: 80px;
+        /* Tambahkan jarak dari bagian atas agar tidak tertutup */
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        gap: 20px;
+    }
+
+
+    .input-form {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        /* Untuk menyelaraskan input secara vertikal */
+        gap: 20px;
+        /* Jarak antar elemen */
+        margin-top: 20px;
+        /* Sesuaikan margin atas */
+    }
+
+    .form-nama,
     .form-dibayar {
-        width: 30%;
-        margin-left: 550px;
-        margin-top: -90px;
+        width: 40%;
     }
+
 
     .form-meja {
         width: 30%;
-        margin-left: 550px;
         margin-top: 10px;
     }
 
-    form label,form input,form select,form h2 {
+    form label,
+    form input,
+    form select,
+    form h2 {
         display: block;
         margin-bottom: 3px;
         /* Kurangi margin bawah */
     }
 
-    form input,form select {
+    form input,
+    form select {
         width: 100%;
         padding: 6px;
         /* Kurangi padding */
@@ -378,7 +434,7 @@ if (!isset($_SESSION['id'])) {
     }
 
     .total-harga {
-        margin-left: 550px;
+
         margin-top: -30px;
     }
 </style>
@@ -389,25 +445,32 @@ if (!isset($_SESSION['id'])) {
             <?php include 'ksidebar.php'; ?>
             <div class="order-information">
                 <div class="mid-info">
+                    <div class="search-container">
+                        <form method="GET" action="">
+                            <input type="text" name="search" placeholder="Cari produk..." value="<?php echo htmlspecialchars($search); ?>">
+                            <button type="submit">Cari</button>
+                        </form>
+                    </div>
                     <div class="isi-form">
                         <form action="inpembeli.php" method="post">
-                            <div class="form-nama">
-                                <label for="nama">Nama:</label>
-                                <input type="text" id="nama" name="nama" required><br><br>
+                            <div class="input-form">
+                                <div class="form-nama">
+                                    <label for="nama">Nama:</label>
+                                    <input type="text" id="nama" name="nama" required><br><br>
+                                </div>
+
+                                <div class="form-dibayar">
+                                    <!-- Input uang yang dibayar -->
+                                    <label for="uang_dibayar">Uang Dibayar:</label>
+                                    <input type="number" id="uang_dibayar" name="uang_dibayar" required><br><br>
+                                </div>
                             </div>
-
-                            <div class="form-dibayar">
-                                <!-- Input uang yang dibayar -->
-                                <label for="uang_dibayar">Uang Dibayar:</label>
-                                <input type="number" id="uang_dibayar" name="uang_dibayar" required><br><br>
-                            </div>                            
-
                             <div class="total-harga">
                                 <h3>Total Harga: Rp <span id="totalHarga">0</span></h3>
                             </div>
 
                             <div class="form-meja">
-                                <!-- Daftar Meja -->                                
+                                <!-- Daftar Meja -->
                                 <?php
                                 include 'konek.php';
 
@@ -429,31 +492,47 @@ if (!isset($_SESSION['id'])) {
                                 ?>
                             </div>
 
+
+
+
                             <h3>Pilih Produk</h3>
                             <div class="menu-container">
                                 <?php
-                                $sql_produk = "SELECT * FROM produk";
-                                $result_produk = $conn->query($sql_produk);
-                                while ($row = $result_produk->fetch_assoc()) {
-                                    $harga_format = number_format($row['harga_produk'], 0, ',', '.');
+                                // Query produk
+                                $sql = "SELECT * FROM produk";
+                                if (!empty($search)) {
+                                    $sql .= " WHERE nama_produk LIKE '%" . $conn->real_escape_string($search) . "%'";
+                                }
+                                $result_produk = $conn->query($sql);
+
+                                // Periksa apakah query berhasil
+                                if ($result_produk && $result_produk->num_rows > 0) {
+                                    while ($row = $result_produk->fetch_assoc()) {
+                                        $harga_format = number_format($row['harga_produk'], 0, ',', '.');
                                 ?>
-                                    <div class="menu">
-                                        <p><?php echo $row['nama_produk']; ?></p>
-                                        <div class="menu-item">
-                                            <img src="data:image/jpg;base64,<?php echo base64_encode($row['gambar_produk']); ?>" alt="<?php echo $row['nama_produk']; ?>">
-                                            <div class="menu-info">
-                                                <p>Rp <?php echo $harga_format; ?></p>
-                                                <input type="hidden" name="produk[<?php echo $row['id_produk']; ?>]" value="<?php echo $row['id_produk']; ?>">
-                                                <div class="input-number-container">
-                                                    <button type="button" class="minusBtn">-</button>
-                                                    <input type="number" class="numberInput" name="quantity[<?php echo $row['id_produk']; ?>]" value="0" min="0" max="1000" data-harga="<?php echo $row['harga_produk']; ?>" required>
-                                                    <button type="button" class="plusBtn">+</button>
+                                        <div class="menu">
+                                            <p><?php echo $row['nama_produk']; ?></p>
+                                            <div class="menu-item">
+                                                <img src="data:image/jpg;base64,<?php echo base64_encode($row['gambar_produk']); ?>" alt="<?php echo $row['nama_produk']; ?>">
+                                                <div class="menu-info">
+                                                    <p>Rp <?php echo $harga_format; ?></p>
+                                                    <input type="hidden" name="produk[<?php echo $row['id_produk']; ?>]" value="<?php echo $row['id_produk']; ?>">
+                                                    <div class="input-number-container">
+                                                        <button type="button" class="minusBtn">-</button>
+                                                        <input type="number" class="numberInput" name="quantity[<?php echo $row['id_produk']; ?>]" value="0" min="0" max="1000" data-harga="<?php echo $row['harga_produk']; ?>" required>
+                                                        <button type="button" class="plusBtn">+</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                 <?php
+                                    }
+                                } else {
+                                    echo "<p>Produk tidak ditemukan.</p>";
                                 }
+
+                                // Tutup koneksi
+                                $conn->close();
                                 ?>
                             </div>
 

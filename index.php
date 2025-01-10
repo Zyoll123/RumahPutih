@@ -89,65 +89,70 @@ $conn->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <style>
-    /* Reset Margin dan Padding */
     * {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
     }
 
-    /* Warna latar belakang utama */
     body {
         background-color: #dde9dd;
     }
 
-    /* Struktur Dashboard */
     .big-three {
         display: flex;
         justify-content: flex-start;
     }
 
-    /* Sidebar */
     .side-bar {
+        display: inline;
         position: fixed;
         height: 100%;
         width: 200px;
         background-color: #ffff;
         border-right: 1px solid #979494;
+        left: 0;
     }
 
     .side-bar img {
         width: 150px;
-        margin: 20px auto;
-        display: block;
-    }
-
-    .side-bar-item {
         margin: 20px;
     }
 
-    .side-bar-item:hover a,
-    .log-out:hover a {
-        color: #9cc1e5;
-        transition: color 0.3s;
+    .side-bar-item {
+        margin-top: 5px;
+        margin-bottom: 30px;
+        margin-left: 20px;
     }
 
-    .side-bar-item a,
-    .log-out a {
+    .side-bar-item:hover a {
+        color: #9cc1e5;
+    }
+
+    .side-bar-item a {
         text-decoration: none;
         color: black;
-        display: flex;
-        align-items: center;
     }
 
-    .side-bar-item a i,
-    .log-out a i {
+    .side-bar-item a i {
         margin-right: 10px;
     }
 
     .log-out {
-        margin-top: auto;
+        margin-top: 170px;
         margin-left: 20px;
+    }
+
+    .log-out:hover a {
+        color: #9cc1e5;
+    }
+
+    .log-out a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .log-out a i {
+        margin-right: 10px;
     }
 
     /* Area Dashboard */
@@ -209,7 +214,7 @@ $conn->close();
     .rekap {
         text-align: center;
         margin-top: 50px;
-        
+
     }
 
     .rekap-button {
@@ -255,7 +260,12 @@ $conn->close();
         }
 
         .rekap {
-            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            /* Mengatur tombol di tengah */
+            gap: 20px;
+            /* Memberikan jarak antara tombol */
+            margin-top: 50px;
         }
     }
 </style>
@@ -289,7 +299,8 @@ $conn->close();
                 </div>
             </div>
             <div class="rekap">
-                <a href="rekap_harian.php"><button class="rekap-button">Rekap</button></a>
+                <a href="rekap_bulanan.php"><button class="rekap-button">Rekap Bulanan</button></a>
+                <a href="rekap_harian.php"><button class="rekap-button" style="margin-top:20px;">Rekap Harian</button></a>
             </div>
 
         </div>

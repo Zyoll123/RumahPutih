@@ -48,20 +48,22 @@ if ($result->num_rows > 0) {
 </head>
 
 <style>
-    .container {
-    position: relative; 
-    flex: 1;
+    body, html {
+    height: 100%; /* Pastikan body dan html menggunakan seluruh tinggi layar */
+    margin: 0;
+}
+
+.big-three {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    background-color: #eef5f0;
+    flex-direction: column; /* Menyusun elemen secara vertikal */
+    justify-content: center; /* Menyusun elemen di tengah secara vertikal */
+    align-items: center; /* Menyusun elemen di tengah secara horizontal */
+    height: 100vh; /* Menggunakan tinggi layar penuh */
 }
 
 .profile-header {
-    position: absolute;
-    top: 20px; /* Letak di kiri atas */
-    left: 20px;
-    text-align: left;
+    text-align: center; /* Menyelaraskan gambar dan teks di tengah */
+    margin-bottom: 20px;
 }
 
 .profile-header img {
@@ -71,24 +73,16 @@ if ($result->num_rows > 0) {
     object-fit: cover;
     border: 2px solid #007acc;
 }
-.profile-header h1 {
-    font-size: 28px;
-    font-weight: bold;
-    margin: 0;
-    color: #333;
-}
 
 .profile-header h1 {
     font-size: 36px;
     color: #007acc;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .profile-header p {
-    margin-left: -110px;
     font-size: 20px;
     color: #005b99;
-    margin-top: 20px;
 }
 
 .profile-card {
@@ -96,9 +90,9 @@ if ($result->num_rows > 0) {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    width: 50%;
+    width: 100%;
     max-width: 600px;
-    margin-top: 200px;
+    margin-top: 20px;
 }
 
 .profile-card h2 {
@@ -124,9 +118,8 @@ if ($result->num_rows > 0) {
 }
 
 .edit-profil {
-    position: absolute;
-    bottom: -50px; /* Posisi kiri bawah */
-    left: 20px;
+    margin-top: 20px; /* Memberikan jarak dari profile card */
+    text-align: center;
 }
 
 .edit-profil a {
@@ -146,41 +139,37 @@ if ($result->num_rows > 0) {
 </style>
 
 <body>
-    <div class="big-three">
-        <?php include 'ksidebar.php'; ?>
+<div class="big-three">
+    <?php include 'ksidebar.php'; ?>
 
-        <div class="container">
-            <div class="profile-header">
-                <img src="assets/Rectangle.png" alt="">
-                <h1>Profil</h1><br>
-                <p><?php echo $user['username']; ?></p> <!-- Menampilkan username -->
+        <div class="profile-header">
+            <img src="assets/Rectangle.png" alt="">
+            <h1>Profil</h1><br>
+            <p><?php echo $user['username']; ?></p> <!-- Menampilkan username -->
+        </div>
+        <div class="profile-card">
+            <h2><?php echo $_SESSION['role'] === 'admin' ? 'Admin' : 'Kasir'; ?></h2>
+            <div class="profile-item">
+                <span>Id Pengguna :</span>
+                <span><?php echo $_SESSION['id']; ?></span> <!-- Menampilkan ID sesuai peran -->
             </div>
-            <div class="profile-card">
-                <h2><?php echo $_SESSION['role'] === 'admin' ? 'Admin' : 'Kasir'; ?></h2>
-                <div class="profile-item">
-                    <span>Id Pengguna :</span>
-                    <span><?php echo $_SESSION['id']; ?></span> <!-- Menampilkan ID sesuai peran -->
-                </div>
-                <div class="profile-item">
-                    <span>Username :</span>
-                    <span><?php echo $user['username']; ?></span>
-                </div>
-                <div class="profile-item">
-                    <span>No. Telp :</span>
-                    <span><?php echo $user['no_telp']; ?></span>
-                </div>
-                <div class="profile-item">
-                    <span>Password :</span>
-                    <span>******</span> <!-- Jangan tampilkan password -->
-                </div>
-                <div class="profile-item">
-                    <span>Waktu Kerja :</span>
-                    <span>15.30 - 21.00</span>
-                </div>
+            <div class="profile-item">
+                <span>Username :</span>
+                <span><?php echo $user['username']; ?></span>
             </div>
-            <div class="edit-profil">
-                <a href="keditprofil.php">Edit Profil</a>
+            <div class="profile-item">
+                <span>No. Telp :</span>
+                <span><?php echo $user['no_telp']; ?></span>
             </div>
+            <div class="profile-item">
+                <span>Password :</span>
+                <span>******</span> <!-- Jangan tampilkan password -->
+            </div>
+        </div>
+
+        <!-- Pindahkan tombol Edit Profil ke dalam container -->
+        <div class="edit-profil">
+            <a href="keditprofil.php">Edit Profil</a>
         </div>
     </div>
 </body>

@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     
     // Hapus data di tabel produk
     mysqli_query($conn, "DELETE FROM produk WHERE id_produk='$id'");
-    header("Location: index.php");
+    header("Location: edit.php");
 } else {
     echo "ID tidak ditemukan.";
 }

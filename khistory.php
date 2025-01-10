@@ -18,8 +18,10 @@
 
                 <form method="GET" action="">
                     <label for="tanggal">Pilih Tanggal:</label>
-                    <select id="tanggal" name="tanggal">
+                    <select id="tanggal" name="tanggal" onchange="filterByDate()">
                         <option value="">Semua Tanggal</option>
+                        <option value="mingguan">Rekap Mingguan</option>
+                        <option value="bulanan">Rekap Bulanan</option>
                         <?php
                         // Koneksi database
                         $koneksi = mysqli_connect("localhost", "root", "", "rumahputih");
@@ -42,7 +44,6 @@
                         }
                         ?>
                     </select>
-                    <button type="submit">Filter</button>
                 </form>
 
                 <table>
@@ -68,12 +69,25 @@
                             echo "Koneksi database gagal : " . mysqli_connect_error();
                         }
 
-                        // Mendapatkan tanggal dari input
+                        // Mendapatkan pilihan filter
                         $tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : '';
 
                         $no = 1;
 
-                        if ($tanggal) {
+                        // Modifikasi query berdasarkan filter (tanggal, mingguan, bulanan)
+                        if ($tanggal == 'mingguan') {
+                            $query = "SELECT pembeli.nama_pembeli, kasir.username, transaksi.total, transaksi.id_transaksi, transaksi.tgl_transaksi, transaksi.uang_dibayar, transaksi.kembalian
+                                      FROM transaksi
+                                      JOIN pembeli ON transaksi.id_pembeli = pembeli.id_pembeli
+                                      JOIN kasir ON transaksi.id_kasir = kasir.id_kasir
+                                      WHERE YEARWEEK(transaksi.tgl_transaksi, 1) = YEARWEEK(CURDATE(), 1)";
+                        } elseif ($tanggal == 'bulanan') {
+                            $query = "SELECT pembeli.nama_pembeli, kasir.username, transaksi.total, transaksi.id_transaksi, transaksi.tgl_transaksi, transaksi.uang_dibayar, transaksi.kembalian
+                                      FROM transaksi
+                                      JOIN pembeli ON transaksi.id_pembeli = pembeli.id_pembeli
+                                      JOIN kasir ON transaksi.id_kasir = kasir.id_kasir
+                                      WHERE MONTH(transaksi.tgl_transaksi) = MONTH(CURDATE()) AND YEAR(transaksi.tgl_transaksi) = YEAR(CURDATE())";
+                        } elseif ($tanggal) {
                             $query = "SELECT pembeli.nama_pembeli, kasir.username, transaksi.total, transaksi.id_transaksi, transaksi.tgl_transaksi, transaksi.uang_dibayar, transaksi.kembalian
                                       FROM transaksi
                                       JOIN pembeli ON transaksi.id_pembeli = pembeli.id_pembeli
@@ -113,6 +127,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function filterByDate() {
+            const selectedDate = document.getElementById('tanggal').value;
+            const url = new URL(window.location.href);
+            if (selectedDate) {
+                url.searchParams.set('tanggal', selectedDate);
+            } else {
+                url.searchParams.delete('tanggal');
+            }
+            window.location.href = url;
+        }
+    </script>
 </body>
 
 </html>

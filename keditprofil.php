@@ -15,7 +15,7 @@
 
         <div class="isi">
             <div class="judul">
-                <h1>Edit Profile Admin</h1>
+                <h1>Edit Profile Kasir</h1>
             </div>
 
             <?php
@@ -63,7 +63,7 @@
 
             ?>
 
-            <form method="post" action="updateadmin.php" enctype="multipart/form-data">
+            <form method="post" action="kupdateadmin.php" enctype="multipart/form-data">
                 <?php if ($_SESSION['role'] === 'admin') : ?>
                     <input type="hidden" name="id_admin" value="<?php echo htmlspecialchars($user['id_admin']); ?>">
                 <?php elseif ($_SESSION['role'] === 'kasir') : ?>
